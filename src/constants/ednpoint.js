@@ -1,0 +1,1 @@
+export const API_ENDPOINT_SEARCH_GITHUB = (keywords) => `https://api.github.com/search/repositories?q=${keywords.replace(' ', '+')}&sort=stars&order=desc`

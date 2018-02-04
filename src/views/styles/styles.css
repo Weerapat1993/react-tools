@@ -1,0 +1,16 @@
+li a {
+  color: #999;
+}
+
+li a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-brand {
+  color: cyan;
+}
+
+body {
+  background: #eeeeee;
+}

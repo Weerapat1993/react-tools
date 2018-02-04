@@ -1,0 +1,1 @@
+export { asyncActionType } from './asyncActionTypes'
