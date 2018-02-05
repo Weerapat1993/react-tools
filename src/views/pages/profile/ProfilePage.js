@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { PageHeader, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import { GITHIB_NAME } from '../../../config'
 import { githubProfileActions } from '../../../redux/github'  
 import { Container } from '../../components'
 import { store } from '../../../utils'
@@ -10,9 +11,8 @@ import { GitHubProfile } from '../../../redux/model'
 class ProfilePage extends Component {
   componentDidMount() {
     const { profile } = this.props
-    const name = 'Weerapat1993'
     if(profile.isReload) {
-      this.props.githubProfile(name)
+      this.props.githubProfile(GITHIB_NAME)
     }
   }
 

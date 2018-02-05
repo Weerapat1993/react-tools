@@ -1,0 +1,1 @@
+export const GITHIB_NAME = 'Weerapat1993'

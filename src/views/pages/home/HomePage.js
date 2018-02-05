@@ -13,13 +13,20 @@ import { connect } from 'react-redux'
 import { githubSearchActions } from '../../../redux/github'
 import { Container } from '../../components'
 import { store } from '../../../utils'
+import { searchValidation } from '../../../validation'
 
 class HomePage extends Component {
   constructor() {
     super()
 
     this.state = {
-      value: ''
+      form: {
+        value: '',
+      },
+      validation: {
+        isValidation: true,
+        value: '',
+      }
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -27,23 +34,41 @@ class HomePage extends Component {
   }
 
   getValidationState() {
-    const length = this.state.value.length;
-    if (length > 3) return 'success';
-    return null;
+    const { value } = this.state.validation
+    const isValidation = this.state.validation.isValidation
+    if(isValidation) return null
+    if (!value) 
+      return 'success'
+    else 
+      return 'error'
   }
 
-  handleChange(e) {
-    this.setState({ value: e.target.value })
+  handleChange(e, key) {
+    const { form } = this.state
+    this.setState({ 
+      form: {
+        ...form,
+        [key]: e.target.value,
+      },
+    }, () => {
+      const checkForm = this.state.form
+      const validation = searchValidation(checkForm)
+      this.setState({ validation })
+    })
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    const { value } = this.state
-    this.props.fetchGithub(value)
+    const { value } = this.state.form
+    const { validation } = this.state
+    if(!Object.keys(validation).length) {
+      this.props.fetchGithub(value)
+    }
   }
 
   render() {
-    const { value } = this.state
+    const { validation } = this.state
+    const { value } = this.state.form
     const { github } = this.props
     return (
       <Container>
@@ -60,10 +85,10 @@ class HomePage extends Component {
               value={value}
               name='keyword'
               placeholder="Search Github"
-              onChange={this.handleChange}
+              onChange={(e) => this.handleChange(e, 'value')}
             />
             <FormControl.Feedback />
-            <HelpBlock>Validation is based on string length.</HelpBlock>
+            { validation.value ? <HelpBlock>{validation.value}</HelpBlock> : null }
           </FormGroup>
         </form>
         {
