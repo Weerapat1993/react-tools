@@ -5,14 +5,13 @@ import {
   FormGroup, 
   ControlLabel, 
   HelpBlock,
-  ButtonGroup,
-  Button,
   ListGroup,
   ListGroupItem,
 } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { githubActions } from '../../../redux/github'
 import { Container } from '../../components'
+import { store } from '../../../utils'
 
 class HomePage extends Component {
   constructor() {
@@ -73,7 +72,7 @@ class HomePage extends Component {
             <ListGroup>
               {
                 github.data.map(item => (
-                  <ListGroupItem>{item.full_name}</ListGroupItem>
+                  <ListGroupItem href={item.html_url} target='_blank'>{item.full_name}</ListGroupItem>
                 ))
               }
             </ListGroup>
@@ -85,7 +84,7 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  github: state.github
+  github: store(state).github
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { FETCH_GITHUB } from './githubActionTypes'
-import { API_ENDPOINT_SEARCH_GITHUB } from '../../constants/ednpoint'
+import { API_ENDPOINT_SEARCH_GITHUB } from '../../constants/endpoint'
 
 export const fetchGithubRequest = () => ({ type: FETCH_GITHUB.REQUEST }) 
 export const fetchGithubSuccess = (data) => ({ type: FETCH_GITHUB.SUCCESS, data }) 
