@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { PageHeader, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import { githubProfileActions } from '../../../redux/github'  
 import { Container } from '../../components'
-import { store } from '../../../utils';
+import { store } from '../../../utils'
+import { GitHubProfile } from '../../../redux/model'
 
 class ProfilePage extends Component {
   componentDidMount() {
@@ -15,17 +17,17 @@ class ProfilePage extends Component {
   }
 
   render() {
-    const { profile } = this.props
+    const { profile, data } = this.props
     return (
       <Container>
-        <PageHeader>Profile</PageHeader>
+        <PageHeader>Github Profile</PageHeader>
         {
           profile.isFetching ? (
             <h3>Loading . . .</h3>  
           ) : (
             <ListGroup>
               {
-                profile.data.map(item => (
+                data.map(item => (
                   <ListGroupItem
                     key={item.id}
                     header={item.full_name} 
@@ -34,6 +36,9 @@ class ProfilePage extends Component {
                     bsStyle='info'
                   >
                       {item.description}
+                      <div className='pull-right'>
+                        {moment(item.updated_at, "YYYYMMDD").fromNow()}
+                      </div>
                   </ListGroupItem>
                 ))
               }
@@ -46,6 +51,7 @@ class ProfilePage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  data: GitHubProfile(store(state).github.profile.data).orderBy('updated_at', 'desc').get(),
   profile: store(state).github.profile
 })
 

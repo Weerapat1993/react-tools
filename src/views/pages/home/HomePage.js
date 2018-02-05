@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import { 
   PageHeader, 
   FormControl, 
@@ -46,7 +47,7 @@ class HomePage extends Component {
     const { github } = this.props
     return (
       <Container>
-        <PageHeader>Home</PageHeader>
+        <PageHeader>Github Search Repositories</PageHeader>
         <form onSubmit={this.handleSubmit}>
           <FormGroup
             controlId="formBasicText"
@@ -79,6 +80,9 @@ class HomePage extends Component {
                     target='_blank' 
                   >
                     {item.description}
+                      <div className='pull-right'>
+                        {moment(item.updated_at, "YYYYMMDD").fromNow()}
+                      </div>
                   </ListGroupItem>
                 ))
               }
