@@ -15,14 +15,13 @@ const Container = ({ children }) => {
         <Navbar.Collapse>
           <Nav>
             <NavItem>
-              <Link to='/'>
-                Home
-              </Link>
+              <Link to='/'>Home</Link>
             </NavItem>
             <NavItem>
-              <Link to='/about'>
-                About
-              </Link>
+              <Link to='/about'>About</Link>
+            </NavItem>
+            <NavItem>
+              <Link to='/profile'>Profile</Link>
             </NavItem>
             <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Action</MenuItem>

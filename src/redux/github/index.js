@@ -1,5 +1,14 @@
+import { combineReducers } from 'redux'
+import { githubProfileActions, githubProfileReducer } from './profile'
+import { githubSearchActions, githubSearchReducer } from './search'
 
-import * as githubActions from './githubActions'
+const githubReducer = combineReducers({
+  profile: githubProfileReducer,
+  search: githubSearchReducer,
+})
 
-export { githubReducer } from './githubReducer'
-export { githubActions }
+export {
+  githubProfileActions,
+  githubSearchActions,
+  githubReducer,
+}

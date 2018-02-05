@@ -5,8 +5,12 @@
  * @property {Error} error
  * @property {Array|Object} data 
  * 
+ * @typedef {Object} Github
+ * @property {DefaiultReducer} search
+ * @property {DefaiultReducer} profile
+ * 
  * @typedef {Object} InitalStore
- * @property {DefaiultReducer} github 
+ * @property {Github} github 
  * 
  * Store in Reducer
  * @param {InitalStore} state

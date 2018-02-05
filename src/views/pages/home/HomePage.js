@@ -9,7 +9,7 @@ import {
   ListGroupItem,
 } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { githubActions } from '../../../redux/github'
+import { githubSearchActions } from '../../../redux/github'
 import { Container } from '../../components'
 import { store } from '../../../utils'
 
@@ -72,7 +72,14 @@ class HomePage extends Component {
             <ListGroup>
               {
                 github.data.map(item => (
-                  <ListGroupItem href={item.html_url} target='_blank'>{item.full_name}</ListGroupItem>
+                  <ListGroupItem 
+                    key={item.id}
+                    header={item.full_name} 
+                    href={item.html_url} 
+                    target='_blank' 
+                  >
+                    {item.description}
+                  </ListGroupItem>
                 ))
               }
             </ListGroup>
@@ -84,11 +91,11 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  github: store(state).github
+  github: store(state).github.search
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchGithub: (keyword) => dispatch(githubActions.fetchGithub(keyword))
+  fetchGithub: (keyword) => dispatch(githubSearchActions.fetchGithub(keyword))
 })
 
 export default connect(
