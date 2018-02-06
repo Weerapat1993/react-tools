@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Row, Form, Input } from 'antd'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import logo from '../../assets/images/logo.svg'
 import '../../styles/login.css'
 
@@ -16,10 +17,12 @@ const Login = ({
 }) => {
   return (
     <div className='login-form'>
+      <Link to='/'>
       <div className='logo'>
         <img alt="logo" src={logo} className='logo-img' />
         <span className='logo-span'>ANT ADMIN</span>
       </div>
+      </Link>
       <form>
         <FormItem hasFeedback>
           {getFieldDecorator('username', {
@@ -47,6 +50,9 @@ const Login = ({
             <span>Username：guest</span>
             <span>Password：guest</span>
           </p>
+          <div className='text-center'>
+            <span><Link to='/'>Back to home</Link></span>
+          </div>
         </Row>
 
       </form>
