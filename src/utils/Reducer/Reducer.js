@@ -133,6 +133,16 @@ export class Reducer {
   getFailureWithKey() {
     return this.setStateWithKey(GET_FAILURE(this.action))
   }
+
+  /**
+   * Add Key By ID
+   * @return {Array.<string>}
+   */
+  addByID() {
+    const { byID } = this.state
+    const { key } = this.action
+    return byID.filter(item => item === key).length ? byID : byID.concat([key])
+  }
 }
 
 export default Reducer

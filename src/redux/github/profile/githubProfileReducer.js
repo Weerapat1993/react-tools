@@ -27,7 +27,7 @@ export const githubProfileReducer = (state = initialState, action) => {
       // return reducer.getRequest()
     case FETCH_GITHUB_PROFILE.SUCCESS:
       return reducer.setState({
-        byID: state.byID.filter(item => item === action.key).length ? state.byID.concat([action.key]) : state.byID,
+        byID: reducer.addByID(),
         keys: reducerKeys.getSuccessWithKey({ data: action.data })
       })
       // return reducer.getSuccess({ data: action.data })

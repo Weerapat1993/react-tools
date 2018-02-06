@@ -49,6 +49,7 @@ class ProfilePage extends Component {
 
   render() {
     const { githubUser } = this.state
+    const { byID } = this.props
     const profile = this.getProfile()
     const btnGroups = [GITHUB_NAME, 'NotFoundData', 'facebook']
     return (
@@ -64,6 +65,15 @@ class ProfilePage extends Component {
               >
                 {item}
               </Button>
+            ))
+          }
+        </ButtonGroup>
+        <hr />
+        <h5>History</h5>
+        <ButtonGroup>
+          {
+            byID.map((item, i) => (
+              <Button key={i}>{item}</Button>
             ))
           }
         </ButtonGroup>
@@ -107,6 +117,7 @@ class ProfilePage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  byID: store(state).github.profile.byID,
   keys: store(state).github.profile.keys,
 })
 
