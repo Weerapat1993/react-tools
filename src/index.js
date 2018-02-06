@@ -7,6 +7,7 @@ import registerServiceWorker from './registerServiceWorker'
 
 // StyleSheet
 // import 'bootstrap/dist/css/bootstrap.css'
+import 'antd/dist/antd.css'
 import './views/styles/styles.css'
 import 'font-awesome/css/font-awesome.min.css'
 

@@ -24,6 +24,9 @@ const Container = ({ children }) => {
               <Link to='/about'>About</Link>
             </NavItem>
             <NavItem>
+              <Link to='/login'>Login</Link>
+            </NavItem>
+            <NavItem>
               <Link to='/profile'><FontAwesome name='github' /> Github</Link>
             </NavItem>
           </Nav>
