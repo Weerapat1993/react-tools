@@ -8,6 +8,7 @@ import registerServiceWorker from './registerServiceWorker'
 // StyleSheet
 // import 'bootstrap/dist/css/bootstrap.css'
 import './views/styles/styles.css'
+import 'font-awesome/css/font-awesome.min.css'
 
 const App = () => (
   <Provider store={configureStore()}>

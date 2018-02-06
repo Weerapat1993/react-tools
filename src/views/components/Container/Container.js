@@ -7,7 +7,7 @@ import { SearchBar } from '../SearchBar'
 const Container = ({ children }) => {
   return (
     <div>
-      <Navbar inverse collapseOnSelect staticTop>
+      <Navbar inverse collapseOnSelect fixedTop>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to='/'>Weerapat (Top)</Link>
@@ -29,6 +29,7 @@ const Container = ({ children }) => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <div style={{ marginTop: 60 }} />
       <div className='container'>
         {children}
       </div>
