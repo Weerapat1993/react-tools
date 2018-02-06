@@ -45,15 +45,14 @@ class HomePage extends Component {
 
   handleChange(e, key) {
     const { form } = this.state
+    const newForm = {
+      ...form,
+      [key]: e.target.value,
+    }
+    const validation = searchValidation(newForm)
     this.setState({ 
-      form: {
-        ...form,
-        [key]: e.target.value,
-      },
-    }, () => {
-      const checkForm = this.state.form
-      const validation = searchValidation(checkForm)
-      this.setState({ validation })
+      form: newForm,
+      validation
     })
   }
 
