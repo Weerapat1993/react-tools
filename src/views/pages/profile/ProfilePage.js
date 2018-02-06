@@ -15,8 +15,6 @@ class ProfilePage extends Component {
     this.state = {
       githubUser: GITHUB_NAME,
     }
-
-    this.setReloadData = this.setReloadData.bind(this)
   }
   componentDidMount() {
     this.reloadData()
@@ -35,13 +33,6 @@ class ProfilePage extends Component {
       this.props.githubProfile(githubUser)
     }
   }
-
-  async setReloadData() {
-    const { githubUser } = this.state
-    await this.props.reloadGithibProfile(githubUser)
-    await this.reloadData()
-  }
-
 
   getProfile() {
     const { githubUser } = this.state
@@ -105,10 +96,9 @@ class ProfilePage extends Component {
             ) : (
               <div className='text-center'>
                 <h3>{profile.error}</h3>
-                <Button onClick={this.setReloadData}>Reload</Button>
+                <Button onClick={() => this.props.handleGithubProfile(githubUser)}>Reload</Button>
               </div>
             )
-           
           )
         }
       </Container>
@@ -123,6 +113,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   githubProfile: (name) => dispatch(githubProfileActions.githubProfile(name)),
   reloadGithibProfile: (name) => dispatch(githubProfileActions.reloadGithibProfile(name)),
+  handleGithubProfile: (name) => dispatch(githubProfileActions.handleGithubProfile(name)),
 })
 
 export default connect(

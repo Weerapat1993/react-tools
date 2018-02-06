@@ -17,3 +17,8 @@ export const githubProfile = (name) => (dispatch, getState) => {
 }
 
 export const reloadGithibProfile = (key) => ({ type: RELOAD_GITHUB_PROFILE, key })
+
+export const handleGithubProfile = (name) => async (dispatch, getState) => {
+  await dispatch(reloadGithibProfile(name))
+  await dispatch(githubProfile(name))
+} 
