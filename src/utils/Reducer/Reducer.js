@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 /**
  * Reducer Class
  * @example
@@ -91,9 +93,10 @@ export class Reducer {
   getFailure() {
     return this.setState({
       isFetching: false,
-      error: this.action.error.message
+      error: _.get(this.action.error, 'response.data.message') || this.action.error.message
     })
   }
 }
 
 export default Reducer
+

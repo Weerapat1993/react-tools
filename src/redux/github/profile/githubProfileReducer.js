@@ -1,4 +1,4 @@
-import { FETCH_GITHUB_PROFILE } from '../githubActionTypes'
+import { FETCH_GITHUB_PROFILE, RELOAD_GITHUB_PROFILE } from '../githubActionTypes'
 import { Reducer } from '../../../utils'
 
 export const initialState = {
@@ -13,7 +13,7 @@ export const initialState = {
 /**
  * Github Profile Reducer
  * @param {initialState} state 
- * @param {{ type: string, data: [], key: string, error: string }} action 
+ * @param {{ type: string, data: [], key: string, error: Error }} action 
  * @return {initialState}
  */
 export const githubProfileReducer = (state = initialState, action) => {
@@ -44,11 +44,16 @@ export const githubProfileReducer = (state = initialState, action) => {
     return reducer.setState({
       keys: reducerKeys.setStateWithKey(action.key, {
         isFetching: false,
-        error: action.error.message,
-        data: action.data
+        error: action.error.response.data.message,
       })
     })
     // return reducer.getFailure()
+    case RELOAD_GITHUB_PROFILE:
+    return reducer.setState({
+      keys: reducerKeys.setStateWithKey(action.key, {
+        isReload: true,
+      })
+    })
     default:
       return state
   }

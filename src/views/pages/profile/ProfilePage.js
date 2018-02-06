@@ -15,6 +15,8 @@ class ProfilePage extends Component {
     this.state = {
       githubUser: GITHUB_NAME,
     }
+
+    this.setReloadData = this.setReloadData.bind(this)
   }
   componentDidMount() {
     this.reloadData()
@@ -34,6 +36,12 @@ class ProfilePage extends Component {
     }
   }
 
+  async setReloadData() {
+    const { githubUser } = this.state
+    await this.props.reloadGithibProfile(githubUser)
+    await this.reloadData()
+  }
+
 
   getProfile() {
     const { githubUser } = this.state
@@ -48,12 +56,10 @@ class ProfilePage extends Component {
     return profile
   }
 
-
-
   render() {
     const { githubUser } = this.state
     const profile = this.getProfile()
-    const btnGroups = [GITHUB_NAME, 'sanigame', 'facebook']
+    const btnGroups = [GITHUB_NAME, 'NotFoundData', 'facebook']
     return (
       <Container>
         <PageHeader>Github Profile</PageHeader>
@@ -73,26 +79,36 @@ class ProfilePage extends Component {
         <hr />
         {
           profile.isFetching ? (
-            <h3>Loading . . .</h3>  
+            <div className='text-center'>
+              <h3>Loading . . .</h3> 
+            </div>
           ) : (
-            <ListGroup>
-              {
-                profile.data.map(item => (
-                  <ListGroupItem
-                    key={item.id}
-                    header={item.full_name} 
-                    href={item.html_url} 
-                    target='_blank' 
-                    bsStyle='info'
-                  >
-                    {item.description}
-                    <div key={item.id} className='pull-right'>
-                      {moment(item.updated_at, "YYYYMMDD").fromNow()}
-                    </div>
-                  </ListGroupItem>
-                ))
-              }
-            </ListGroup>
+            !profile.error ? (
+              <ListGroup>
+                {
+                  profile.data.map(item => (
+                    <ListGroupItem
+                      key={item.id}
+                      header={item.full_name} 
+                      href={item.html_url} 
+                      target='_blank' 
+                      bsStyle='info'
+                    >
+                      {item.description}
+                      <div key={item.id} className='pull-right'>
+                        {moment(item.updated_at, "YYYYMMDD").fromNow()}
+                      </div>
+                    </ListGroupItem>
+                  ))
+                }
+              </ListGroup>
+            ) : (
+              <div className='text-center'>
+                <h3>{profile.error}</h3>
+                <Button onClick={this.setReloadData}>Reload</Button>
+              </div>
+            )
+           
           )
         }
       </Container>
@@ -105,7 +121,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  githubProfile: (name) => dispatch(githubProfileActions.githubProfile(name))
+  githubProfile: (name) => dispatch(githubProfileActions.githubProfile(name)),
+  reloadGithibProfile: (name) => dispatch(githubProfileActions.reloadGithibProfile(name)),
 })
 
 export default connect(

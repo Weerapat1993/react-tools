@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { FETCH_GITHUB_PROFILE } from '../githubActionTypes'
+import { FETCH_GITHUB_PROFILE, RELOAD_GITHUB_PROFILE } from '../githubActionTypes'
 import { API_ENDPOINT_GITHUB_PROFILE } from '../../../constants/endpoint'
 
 export const githubProfileRequest = (key) => ({ type: FETCH_GITHUB_PROFILE.REQUEST, key }) 
@@ -15,3 +15,5 @@ export const githubProfile = (name) => (dispatch, getState) => {
     .then(res => dispatch(githubProfileSuccess(name, res.data)))
     .catch(error => dispatch(githubProfileFailure(name, error)))
 }
+
+export const reloadGithibProfile = (key) => ({ type: RELOAD_GITHUB_PROFILE, key })
