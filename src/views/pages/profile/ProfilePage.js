@@ -96,9 +96,9 @@ class ProfilePage extends Component {
                       bsStyle='info'
                     >
                       {item.description}
-                      <div key={item.id} className='pull-right'>
+                      <span className='pull-right'>
                         {moment(item.updated_at, "YYYYMMDD").fromNow()}
-                      </div>
+                      </span>
                     </ListGroupItem>
                   ))
                 }

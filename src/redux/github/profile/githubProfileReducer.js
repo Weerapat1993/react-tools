@@ -18,28 +18,15 @@ export const initialState = {
  */
 export const githubProfileReducer = (state = initialState, action) => {
   const reducer = new Reducer(state, action)
-  const reducerKeys = new Reducer(state.keys, action)
   switch(action.type) {
     case FETCH_GITHUB_PROFILE.REQUEST:
-      return reducer.setState({
-        keys: reducerKeys.getRequestWithKey()
-      })
-      // return reducer.getRequest()
+      return reducer.getRequestWithKey()
     case FETCH_GITHUB_PROFILE.SUCCESS:
-      return reducer.setState({
-        byID: reducer.addByID(),
-        keys: reducerKeys.getSuccessWithKey({ data: action.data })
-      })
-      // return reducer.getSuccess({ data: action.data })
+      return reducer.getSuccessWithKey({ data: action.data })
     case FETCH_GITHUB_PROFILE.FAILURE:
-    return reducer.setState({
-      keys: reducerKeys.getFailureWithKey()
-    })
-    // return reducer.getFailure()
+      return reducer.getFailureWithKey()
     case RELOAD_GITHUB_PROFILE:
-    return reducer.setState({
-      keys: reducerKeys.setStateWithKey({ isReload: true })
-    })
+      return reducer.setStateWithKey({ isReload: true })
     default:
       return state
   }

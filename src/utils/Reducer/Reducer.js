@@ -71,9 +71,12 @@ export class Reducer {
   setStateWithKey(newState) {
     return {
       ...this.state,
-      [this.key]: {
-        ...this.state[this.key],
-        ...newState
+      keys: {
+        ...this.state.keys,
+        [this.key]: {
+          ...this.state.keys[this.key],
+          ...newState
+        }
       }
     }
   }
@@ -112,9 +115,13 @@ export class Reducer {
    * @return {State}
    */
   getSuccessWithKey(data) {
-    return this.setStateWithKey({
+    const { keys } = this.setStateWithKey({
       ...GET_SUCCESS,
       ...data,
+    })
+    return this.setState({
+      byID: this.addByID(),
+      keys,
     })
   }
 
