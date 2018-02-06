@@ -35,7 +35,7 @@ const Container = ({ children }) => {
       </div>
       <div style={{ marginTop: 60 }} />
       <Navbar fixedBottom>
-        <Nav pull>
+        <Nav pullRight>
           <NavItem eventKey={1} href="#">
             weerapat1993.github.io
           </NavItem>
