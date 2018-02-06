@@ -1,33 +1,83 @@
 import React, { Component } from 'react'
-import { PageHeader, ListGroup, ListGroupItem } from 'react-bootstrap'
+import _ from 'lodash'
+import { PageHeader, ListGroup, ListGroupItem, ButtonGroup, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { GITHIB_NAME } from '../../../config'
+import { GITHUB_NAME } from '../../../config'
 import { githubProfileActions } from '../../../redux/github'  
 import { Container } from '../../components'
 import { store } from '../../../utils'
-import { GitHubProfile } from '../../../redux/model'
 
 class ProfilePage extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      githubUser: GITHUB_NAME,
+    }
+  }
   componentDidMount() {
-    const { profile } = this.props
+    this.reloadData()
+  }
+
+  handleGithubProfile(name) {
+    this.setState({ githubUser: name }, () => {
+      this.reloadData()
+    })
+  }
+
+  reloadData() {
+    const { githubUser } = this.state
+    const profile = this.getProfile()
     if(profile.isReload) {
-      this.props.githubProfile(GITHIB_NAME)
+      this.props.githubProfile(githubUser)
     }
   }
 
+
+  getProfile() {
+    const { githubUser } = this.state
+    const { keys } = this.props
+    const defaultState = {
+      isFetching: false,
+      isReload: true,
+      data: [],
+      error: '',
+    }
+    const profile = _.get(keys, githubUser) || defaultState
+    return profile
+  }
+
+
+
   render() {
-    const { profile, data } = this.props
+    const { githubUser } = this.state
+    const profile = this.getProfile()
+    const btnGroups = [GITHUB_NAME, 'sanigame', 'facebook']
     return (
       <Container>
         <PageHeader>Github Profile</PageHeader>
+        <ButtonGroup>
+          {
+            btnGroups.map((item, i) => (
+              <Button 
+                key={i} 
+                onClick={() => this.handleGithubProfile(item)} 
+                bsStyle={item === githubUser ? 'primary' : 'default'}
+              >
+                {item}
+              </Button>
+            ))
+          }
+        </ButtonGroup>
+        <hr />
         {
           profile.isFetching ? (
             <h3>Loading . . .</h3>  
           ) : (
             <ListGroup>
               {
-                data.map(item => (
+                profile.data.map(item => (
                   <ListGroupItem
                     key={item.id}
                     header={item.full_name} 
@@ -35,10 +85,10 @@ class ProfilePage extends Component {
                     target='_blank' 
                     bsStyle='info'
                   >
-                      {item.description}
-                      <div className='pull-right'>
-                        {moment(item.updated_at, "YYYYMMDD").fromNow()}
-                      </div>
+                    {item.description}
+                    <div key={item.id} className='pull-right'>
+                      {moment(item.updated_at, "YYYYMMDD").fromNow()}
+                    </div>
                   </ListGroupItem>
                 ))
               }
@@ -51,8 +101,7 @@ class ProfilePage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  data: GitHubProfile(store(state).github.profile.data).orderBy('updated_at', 'desc').get(),
-  profile: store(state).github.profile
+  keys: store(state).github.profile.keys,
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

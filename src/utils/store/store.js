@@ -3,7 +3,9 @@
  * @property {boolean} isFetching
  * @property {boolean} isReload
  * @property {Error} error
- * @property {Array|Object} data 
+ * @property {Array|Object} data
+ * @property {Array.<string>} byID
+ * @property {Object.<Object>} keys 
  * 
  * @typedef {Object} Github
  * @property {DefaiultReducer} search

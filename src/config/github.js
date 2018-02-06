@@ -1,1 +1,1 @@
-export const GITHIB_NAME = 'Weerapat1993'
+export const GITHUB_NAME = 'Weerapat1993'

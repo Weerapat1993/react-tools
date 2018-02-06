@@ -11,6 +11,8 @@
  * @property {boolean} isReload
  * @property {string} error
  * @property {Data} data
+ * @property {Array.<string>} byID
+ * @property {Object.<Object>} keys 
  * 
  * @typedef {Object} Action
  * @property {string} type
@@ -31,13 +33,29 @@ export class Reducer {
 
   /**
    * Set state in Reducer
-   * @param {Object} newState
+   * @param {State} newState
    * @return {State}
    */
   setState(newState) {
     return {
       ...this.state,
       ...newState,
+    }
+  }
+
+  /**
+   * Set state withKey in Reducer
+   * @param {string} key
+   * @param {State} newState
+   * @return {State}
+   */
+  setStateWithKey(key, newState) {
+    return {
+      ...this.state,
+      [key]: {
+        ...this.state[key],
+        ...newState
+      }
     }
   }
 
