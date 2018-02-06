@@ -48,6 +48,7 @@ export class Reducer {
   constructor(state, action) {
     this.state = state
     this.action = action
+    this.key = action.key
   }
 
   /**
@@ -64,15 +65,14 @@ export class Reducer {
 
   /**
    * Set state withKey in Reducer
-   * @param {string} key
    * @param {State} newState
    * @return {State}
    */
-  setStateWithKey(key, newState) {
+  setStateWithKey(newState) {
     return {
       ...this.state,
-      [key]: {
-        ...this.state[key],
+      [this.key]: {
+        ...this.state[this.key],
         ...newState
       }
     }
@@ -88,11 +88,10 @@ export class Reducer {
 
   /**
    * get Request case withKey in Reducer
-   * @param {string} key
    * @return {State}
    */
-  getRequestWithKey(key) {
-    return this.setStateWithKey(key, GET_REQUEST)
+  getRequestWithKey() {
+    return this.setStateWithKey(GET_REQUEST)
   }
 
   /**
@@ -109,12 +108,11 @@ export class Reducer {
 
   /**
    * get Success case withKey in Reducer
-   * @param {string} key
    * @param {State} data
    * @return {State}
    */
-  getSuccessWithKey(key, data) {
-    return this.setStateWithKey(key, {
+  getSuccessWithKey(data) {
+    return this.setStateWithKey({
       ...GET_SUCCESS,
       ...data,
     })
@@ -130,11 +128,10 @@ export class Reducer {
 
   /**
    * get Success case withKey in Reducer
-   * @param {string} key
    * @return {State}
    */
-  getFailureWithKey(key) {
-    return this.setStateWithKey(key, GET_FAILURE(this.action))
+  getFailureWithKey() {
+    return this.setStateWithKey(GET_FAILURE(this.action))
   }
 }
 
