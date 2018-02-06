@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import { 
   PageHeader, 
@@ -16,6 +17,15 @@ import { store } from '../../../utils'
 import { searchValidation } from '../../../validation'
 
 class HomePage extends Component {
+  static propTypes = {
+    github: PropTypes.shape({
+      data: PropTypes.array,
+      isFetching: PropTypes.bool,
+      isReload: PropTypes.bool,
+      error: PropTypes.string,
+    }),
+  }
+
   constructor() {
     super()
 

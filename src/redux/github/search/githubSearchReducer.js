@@ -15,25 +15,15 @@ export const initialState = {
  * @return {initialState}
  */
 export const githubSearchReducer = (state = initialState, action) => {
-  const reducer = new GithubSearchReducer(state, action)
+  const reducer = new Reducer(state, action)
   switch(action.type) {
     case SEARCH_GITHUB_REPOSITORIES.REQUEST:
       return reducer.getRequest()
     case SEARCH_GITHUB_REPOSITORIES.SUCCESS:
-      return reducer.searchGithubSuccess()
+      return reducer.getSuccess({ data: action.data })
     case SEARCH_GITHUB_REPOSITORIES.FAILURE:
       return reducer.getFailure()
     default:
       return state
-  }
-}
-
-export class GithubSearchReducer extends Reducer {
-  searchGithubSuccess() {
-    return this.setState({
-      isFetching: false,
-      data: this.action.data,
-      error: null,
-    })
   }
 }

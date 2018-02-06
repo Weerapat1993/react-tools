@@ -32,7 +32,7 @@ export class Reducer {
   /**
    * Set state in Reducer
    * @param {Object} newState
-   * @return {this.state}
+   * @return {State}
    */
   setState(newState) {
     return {
@@ -41,21 +41,40 @@ export class Reducer {
     }
   }
 
+  /**
+   * get Request case in Reducer
+   * @return {State}
+   */
   getRequest() {
-    return {
-      ...this.state,
+    return this.setState({
       isFetching: true,
       error: '',
       isReload: false
-    }
+    })
   }
 
+  /**
+   * get Success case in Reducer
+   * @param {State} data
+   * @return {State} 
+   */
+  getSuccess(data) {
+    return this.setState({
+      isFetching: false,
+      error: '',
+      ...data,
+    })
+  }
+
+  /**
+   * get Failure case in Reducer
+   * @return {State}
+   */
   getFailure() {
-    return {
-      ...this.state,
+    return this.setState({
       isFetching: false,
       error: this.action.error.message
-    }
+    })
   }
 }
 

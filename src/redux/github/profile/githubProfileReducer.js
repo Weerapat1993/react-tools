@@ -15,25 +15,15 @@ export const initialState = {
  * @return {initialState}
  */
 export const githubProfileReducer = (state = initialState, action) => {
-  const reducer = new GithubProfileReducer(state, action)
+  const reducer = new Reducer(state, action)
   switch(action.type) {
     case FETCH_GITHUB_PROFILE.REQUEST:
       return reducer.getRequest()
     case FETCH_GITHUB_PROFILE.SUCCESS:
-      return reducer.githubProfileSuccess()
+      return reducer.getSuccess({ data: action.data })
     case FETCH_GITHUB_PROFILE.FAILURE:
       return reducer.getFailure()
     default:
       return state
-  }
-}
-
-export class GithubProfileReducer extends Reducer {
-  githubProfileSuccess() {
-    return this.setState({
-      isFetching: false,
-      data: this.action.data,
-      error: null,
-    })
   }
 }
