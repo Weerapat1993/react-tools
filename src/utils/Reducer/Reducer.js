@@ -1,5 +1,22 @@
 import _ from 'lodash'
 
+// Config
+const GET_REQUEST = {
+  isFetching: true,
+  error: '',
+  isReload: false
+}
+
+const GET_SUCCESS = {
+  isFetching: false,
+  error: '',
+}
+
+const GET_FAILURE = (action) => ({
+  isFetching: false,
+  error: _.get(action.error, 'response.data.message') || action.error.message
+})
+
 /**
  * Reducer Class
  * @example
@@ -66,11 +83,16 @@ export class Reducer {
    * @return {State}
    */
   getRequest() {
-    return this.setState({
-      isFetching: true,
-      error: '',
-      isReload: false
-    })
+    return this.setState(GET_REQUEST)
+  }
+
+  /**
+   * get Request case withKey in Reducer
+   * @param {string} key
+   * @return {State}
+   */
+  getRequestWithKey(key) {
+    return this.setStateWithKey(key, GET_REQUEST)
   }
 
   /**
@@ -80,8 +102,20 @@ export class Reducer {
    */
   getSuccess(data) {
     return this.setState({
-      isFetching: false,
-      error: '',
+      ...GET_SUCCESS,
+      ...data,
+    })
+  }
+
+  /**
+   * get Success case withKey in Reducer
+   * @param {string} key
+   * @param {State} data
+   * @return {State}
+   */
+  getSuccessWithKey(key, data) {
+    return this.setStateWithKey(key, {
+      ...GET_SUCCESS,
       ...data,
     })
   }
@@ -91,10 +125,16 @@ export class Reducer {
    * @return {State}
    */
   getFailure() {
-    return this.setState({
-      isFetching: false,
-      error: _.get(this.action.error, 'response.data.message') || this.action.error.message
-    })
+    return this.setState(GET_FAILURE(this.action))
+  }
+
+  /**
+   * get Success case withKey in Reducer
+   * @param {string} key
+   * @return {State}
+   */
+  getFailureWithKey(key) {
+    return this.setStateWithKey(key, GET_FAILURE(this.action))
   }
 }
 
