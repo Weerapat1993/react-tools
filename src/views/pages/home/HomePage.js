@@ -102,25 +102,33 @@ class HomePage extends Component {
         </form>
         {
           github.isFetching ? (
-            <h3>Loading . . .</h3>  
+            <div className='text-center'>
+              <h3>Loading . . .</h3> 
+            </div>
           ) : (
-            <ListGroup>
-              {
-                github.data.map(item => (
-                  <ListGroupItem 
-                    key={item.id}
-                    header={item.full_name} 
-                    href={item.html_url} 
-                    target='_blank' 
-                  >
-                    {item.description}
-                      <div className='pull-right'>
-                        {moment(item.updated_at, "YYYYMMDD").fromNow()}
-                      </div>
-                  </ListGroupItem>
-                ))
-              }
-            </ListGroup>
+            !github.error ? (
+              <ListGroup>
+                {
+                  github.data.map(item => (
+                    <ListGroupItem 
+                      key={item.id}
+                      header={item.full_name} 
+                      href={item.html_url} 
+                      target='_blank' 
+                    >
+                      {item.description}
+                        <div className='pull-right'>
+                          {moment(item.updated_at, "YYYYMMDD").fromNow()}
+                        </div>
+                    </ListGroupItem>
+                  ))
+                }
+              </ListGroup>
+            ) : (
+              <div className='text-center'>
+                <h3>{github.error}</h3>
+              </div>
+            )
           )
         }
       </Container>

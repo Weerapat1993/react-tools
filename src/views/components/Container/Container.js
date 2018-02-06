@@ -1,6 +1,8 @@
 import React from 'react'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
-import { Link } from 'react-router-dom' 
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import FontAwesome from 'react-fontawesome'
+import { SearchBar } from '../SearchBar'
 
 const Container = ({ children }) => {
   return (
@@ -8,12 +10,13 @@ const Container = ({ children }) => {
       <Navbar inverse collapseOnSelect staticTop>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#brand">Weerapat Top</a>
+            <Link to='/'>Weerapat (Top)</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav>
+          <SearchBar />
+          <Nav pullRight>
             <NavItem>
               <Link to='/'>Home</Link>
             </NavItem>
@@ -21,22 +24,7 @@ const Container = ({ children }) => {
               <Link to='/about'>About</Link>
             </NavItem>
             <NavItem>
-              <Link to='/profile'>Profile</Link>
-            </NavItem>
-            <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Action</MenuItem>
-              <MenuItem eventKey={3.2}>Another action</MenuItem>
-              <MenuItem eventKey={3.3}>Something else here</MenuItem>
-              <MenuItem divider />
-              <MenuItem eventKey={3.3}>Separated link</MenuItem>
-            </NavDropdown>
-          </Nav>
-          <Nav pullRight>
-            <NavItem eventKey={1} href="#">
-              Link Right
-            </NavItem>
-            <NavItem eventKey={2} href="#">
-              Link Right
+              <Link to='/profile'><FontAwesome name='github' /> Github</Link>
             </NavItem>
           </Nav>
         </Navbar.Collapse>
@@ -44,6 +32,14 @@ const Container = ({ children }) => {
       <div className='container'>
         {children}
       </div>
+      <div style={{ marginTop: 60 }} />
+      <Navbar fixedBottom>
+        <Nav pull>
+          <NavItem eventKey={1} href="#">
+            weerapat1993.github.io
+          </NavItem>
+        </Nav>
+      </Navbar>
     </div>
   )
 }

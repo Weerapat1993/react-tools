@@ -14,3 +14,9 @@ li a:hover {
 body {
   background: #eeeeee;
 }
+
+.validation-white {
+  color: #eee;
+  margin-top: 5px;
+  font-size: 11px;
+}
