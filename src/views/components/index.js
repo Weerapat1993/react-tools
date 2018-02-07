@@ -1,2 +1,3 @@
 export { Container } from './Container'
-// export { FormExample } from './FormExample'
+export { Layouts } from './Layouts'
+export { SearchBar } from './SearchBar'

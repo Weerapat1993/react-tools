@@ -1,0 +1,25 @@
+
+.ant-logo {
+  text-align: center;
+  cursor: pointer;
+  margin-top: 24px;
+  margin-left: 5px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-logo-img {
+  width: 40px;
+  margin-right: 8px;
+}
+
+.ant-logo-span {
+  vertical-align: text-bottom;
+  font-size: 16px;
+  text-transform: uppercase;
+  display: inline-block;
+  font-weight: 700;
+  color: #1DA57A;
+}

@@ -18,9 +18,9 @@ const Login = ({
   return (
     <div className='login-form'>
       <Link to='/'>
-      <div className='logo'>
-        <img alt="logo" src={logo} className='logo-img' />
-        <span className='logo-span'>ANT ADMIN</span>
+      <div className='ant-login-logo'>
+        <img alt="logo" src={logo} className='ant-login-logo-img' />
+        <span className='ant-login-logo-span'>ANT ADMIN</span>
       </div>
       </Link>
       <form>

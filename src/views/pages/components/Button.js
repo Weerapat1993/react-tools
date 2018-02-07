@@ -1,12 +1,12 @@
 import React from 'react'
 import { Layouts } from '../../components'
 
-const AboutPage = (props) => {
+const ComponentButton = (props) => {
   return (
     <Layouts {...props}>
-      <h1>About</h1>
+      <h1>Component Button</h1>
     </Layouts>
   )
 }
 
-export default AboutPage
+export default ComponentButton

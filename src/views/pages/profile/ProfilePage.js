@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { PageHeader, ListGroup, ListGroupItem, ButtonGroup, Button } from 'react-bootstrap'
+import { PageHeader } from 'react-bootstrap'
+import { Radio, Button, Modal, List, Avatar } from 'antd'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { GITHUB_NAME } from '../../../config'
 import { githubProfileActions } from '../../../redux/github'  
-import { Container } from '../../components'
+import { Layouts } from '../../components'
 import { store } from '../../../utils'
 
 class ProfilePage extends Component {
@@ -15,12 +16,15 @@ class ProfilePage extends Component {
     this.state = {
       githubUser: GITHUB_NAME,
     }
+
+    this.handleGithubProfile = this.handleGithubProfile.bind(this)
   }
   componentDidMount() {
     this.reloadData()
   }
 
-  handleGithubProfile(name) {
+  handleGithubProfile(e) {
+    const name = e.target.value
     this.setState({ githubUser: name }, () => {
       this.reloadData()
     })
@@ -32,6 +36,20 @@ class ProfilePage extends Component {
     if(profile.isReload) {
       this.props.githubProfile(githubUser)
     }
+  }
+
+  githubProfile(select) {
+    const url = `https://github.com/${select}`
+    Modal.confirm({
+      title: 'Do you Want to open github profile?',
+      content: url,
+      onOk() {
+        window.open(url)
+      },
+      onCancel() {
+        
+      },
+    });
   }
 
   getProfile() {
@@ -53,31 +71,23 @@ class ProfilePage extends Component {
     const profile = this.getProfile()
     const btnGroups = [GITHUB_NAME, 'NotFoundData', 'facebook']
     return (
-      <Container>
+      <Layouts {...this.props}>
         <PageHeader>Github Profile</PageHeader>
-        <ButtonGroup>
+        <Radio.Group onChange={this.handleGithubProfile} defaultValue={githubUser}>
           {
             btnGroups.map((item, i) => (
-              <Button 
-                key={i} 
-                onClick={() => this.handleGithubProfile(item)} 
-                bsStyle={item === githubUser ? 'primary' : 'default'}
-              >
-                {item}
-              </Button>
+              <Radio.Button key={i} value={item} >{item}</Radio.Button>
             ))
           }
-        </ButtonGroup>
-        <hr />
+        </Radio.Group>
         <h5>History</h5>
-        <ButtonGroup>
+        <Button.Group>
           {
             byID.map((item, i) => (
-              <Button key={i}>{item}</Button>
+              <Button type='primary' onClick={() => this.githubProfile(item)} key={i}>{item}</Button>
             ))
           }
-        </ButtonGroup>
-        <hr />
+        </Button.Group>
         {
           profile.isFetching ? (
             <div className='text-center'>
@@ -85,24 +95,20 @@ class ProfilePage extends Component {
             </div>
           ) : (
             !profile.error ? (
-              <ListGroup>
-                {
-                  profile.data.map(item => (
-                    <ListGroupItem
-                      key={item.id}
-                      header={item.full_name} 
-                      href={item.html_url} 
-                      target='_blank' 
-                      bsStyle='info'
-                    >
-                      {item.description}
-                      <span className='pull-right'>
-                        {moment(item.updated_at, "YYYYMMDD").fromNow()}
-                      </span>
-                    </ListGroupItem>
-                  ))
-                }
-              </ListGroup>
+              <List
+                itemLayout="horizontal"
+                dataSource={profile.data}
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={item.owner.avatar_url} />}
+                      title={<a href={item.html_url} target='_blank'>{item.full_name}</a>}
+                      description={item.description}
+                    />
+                    <div>{moment(item.updated_at, "YYYYMMDD").fromNow()}</div>
+                  </List.Item>
+                )}
+              />
             ) : (
               <div className='text-center'>
                 <h3>{profile.error}</h3>
@@ -111,7 +117,7 @@ class ProfilePage extends Component {
             )
           )
         }
-      </Container>
+      </Layouts>
     )
   }
 }

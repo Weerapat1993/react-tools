@@ -28,7 +28,7 @@
   height: 100%;
 }
 
-.logo {
+.ant-login-logo {
   text-align: center;
   cursor: pointer;
   margin-bottom: 24px;
@@ -37,12 +37,12 @@
   align-items: center;
 }
 
-.logo-img {
+.ant-login-logo-img {
   width: 40px;
   margin-right: 8px;
 }
 
-.logo-span {
+.ant-login-logo-span {
   vertical-align: text-bottom;
   font-size: 16px;
   text-transform: uppercase;
