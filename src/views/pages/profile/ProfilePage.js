@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { PageHeader } from 'react-bootstrap'
 import { Radio, Button, Modal, List, Avatar, Spin, Row, Col } from 'antd'
 import { connect } from 'react-redux'
 import moment from 'moment'
@@ -76,7 +75,7 @@ class ProfilePage extends Component {
     const btnGroups = [GITHUB_NAME, 'NotFoundData', 'facebook']
     return (
       <Layouts {...this.props}>
-        <PageHeader>Github Profile</PageHeader>
+        <h1>Github Profile</h1>
         <Radio.Group onChange={this.handleGithubProfile} defaultValue={githubUser}>
           {
             btnGroups.map((item, i) => (

@@ -8,9 +8,7 @@ import registerServiceWorker from './registerServiceWorker'
 import locale from 'antd/lib/locale-provider/en_US';
 
 // StyleSheet
-// import 'bootstrap/dist/css/bootstrap.css'
 import 'antd/dist/antd.css'
-// import './views/styles/styles.css'
 import 'font-awesome/css/font-awesome.min.css'
 
 const App = () => (
