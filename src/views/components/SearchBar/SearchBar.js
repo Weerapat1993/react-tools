@@ -44,19 +44,23 @@ class SearchBar extends Component {
     this.setState({ keyword: value })
   }
 
-  handleSelect(select) {
-    this.setState({ keyword: select })
-    const url = `https://github.com/${select}`
-    confirm({
-      title: 'Do you Want to open github website?',
-      content: url,
-      onOk() {
-        window.open(url)
-      },
-      onCancel() {
-        
-      },
-    });
+  handleSelect(select, option) {
+    const { keyword } = this.state
+    if(keyword === select) {
+      this.props.onSubmit(keyword)
+    } else {
+      const url = `https://github.com/${select}`
+      confirm({
+        title: 'Do you Want to open github website?',
+        content: url,
+        onOk() {
+          window.open(url)
+        },
+        onCancel() {
+
+        },
+      });
+    }
   }
 
   handleReset = () => {
@@ -100,6 +104,9 @@ class SearchBar extends Component {
         key={group.title}
         label={this.renderTitle(group.title, keyword)}
       >
+        <Option value={keyword}>
+          {keyword}
+        </Option>
         {group.children.map(item => (
           <Option key={item.id} value={item.full_name}>
             <img src={item.owner.avatar_url} alt='logo' className='auto-complete-logo' />
