@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import { PageHeader } from 'react-bootstrap'
-import { Radio, Button, Modal, List, Avatar } from 'antd'
+import { Radio, Button, Modal, List, Avatar, Spin, Row, Col } from 'antd'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { GITHUB_NAME } from '../../../config'
@@ -94,9 +94,9 @@ class ProfilePage extends Component {
         </Button.Group>
         {
           profile.isFetching ? (
-            <div className='text-center'>
-              <h3>Loading . . .</h3> 
-            </div>
+            <Row>
+              <Col span={24}><Spin size="large" /></Col>
+            </Row>
           ) : (
             !profile.error ? (
               <List

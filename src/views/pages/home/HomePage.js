@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { List, Avatar, Modal } from 'antd'
+import { List, Avatar, Modal, Spin, Row, Col } from 'antd'
 import { connect } from 'react-redux'
 import { Layouts } from '../../components'
 import { store } from '../../../utils/store/store';
@@ -25,9 +25,12 @@ const Home = (props) => {
       <h1>Home</h1>
       {
         github.isFetching ? (
-          <div className='text-center'>
-            <h3>Loading . . .</h3> 
-          </div>
+          <Row>
+            <Col span={24}>
+              <Spin size="large" />
+              <h2>Loading . . .</h2>
+            </Col>
+          </Row>
         ) : (
           !github.error ? (
             <List
