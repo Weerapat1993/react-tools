@@ -71,6 +71,7 @@ class SearchBar extends Component {
   }
 
   handleClear() {
+    this.handleReset()
     this.props.onClearData()
   }
 
