@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { SEARCH_GITHUB_REPOSITORIES } from '../githubActionTypes'
+import { SEARCH_GITHUB_REPOSITORIES, CLEAR_GITHUB_REPOSITORIES } from '../githubActionTypes'
 import { API_ENDPOINT_SEARCH_GITHUB } from '../../../constants/endpoint'
 import { AsyncActions } from '../../../utils'
 
@@ -28,3 +28,5 @@ export const fetchGithub = (keyword) => (dispatch, getState) => {
 //     .then(res => dispatch(fetchGithubSuccess(res.data.items)))
 //     .catch(error => dispatch(fetchGithubFailure(error)))
 // }
+
+export const clearGithubRepositories = () => ({ type: CLEAR_GITHUB_REPOSITORIES })

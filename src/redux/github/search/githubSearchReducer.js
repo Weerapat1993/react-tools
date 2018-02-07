@@ -1,4 +1,4 @@
-import { SEARCH_GITHUB_REPOSITORIES } from '../githubActionTypes'
+import { SEARCH_GITHUB_REPOSITORIES, CLEAR_GITHUB_REPOSITORIES } from '../githubActionTypes'
 import { Reducer } from '../../../utils'
 
 export const initialState = {
@@ -23,6 +23,8 @@ export const githubSearchReducer = (state = initialState, action) => {
       return reducer.getSuccess({ data: action.data })
     case SEARCH_GITHUB_REPOSITORIES.FAILURE:
       return reducer.getFailure()
+    case CLEAR_GITHUB_REPOSITORIES:
+      return reducer.setState({ data: [] })
     default:
       return state
   }

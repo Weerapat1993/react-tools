@@ -22,10 +22,15 @@ class Layouts extends React.Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleClearData = this.handleClearData.bind(this)
   }
 
   handleSubmit(value) {
     this.props.fetchGithub(value)
+  }
+
+  handleClearData() {
+    this.props.clearGithubRepositories()
   }
 
   onCollapse = () => {
@@ -49,7 +54,10 @@ class Layouts extends React.Component {
     const { collapsed } = this.state
     const breadcrumbs = location.pathname.split(new RegExp('/','g')).slice(1)
     const keyPath = _.get(location, 'state.keyPath', [location.pathname])
-    const searchData = github.data.map(item => item.full_name)
+    const searchData = [{
+      title: 'Repositories',
+      children: github.data,
+    }];
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
@@ -98,7 +106,12 @@ class Layouts extends React.Component {
                 onClick={this.onCollapse}
                 style={{ paddingLeft: 15, paddingRight: 15}}
               />
-              <SearchBar dataSource={searchData} onSubmit={this.handleSubmit} />
+              <SearchBar
+                isFetching={github.isFetching}
+                dataSource={searchData} 
+                onSubmit={this.handleSubmit} 
+                onClearData={this.handleClearData}
+              />
           </Header>
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
@@ -128,7 +141,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchGithub: (keyword) => dispatch(githubSearchActions.fetchGithub(keyword))
+  fetchGithub: (keyword) => dispatch(githubSearchActions.fetchGithub(keyword)),
+  clearGithubRepositories: () => dispatch(githubSearchActions.clearGithubRepositories()),
 })
 
 export default connect(
