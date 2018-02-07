@@ -10,6 +10,12 @@ const treeData = {
     'index.html'
   ],
   src: {
+    common: {
+      FolderStructure: [
+        'index.js',
+        'FolderStructure.js',
+      ]
+    },
     views: [
       'endpoint.js',
       'api.js',
@@ -92,11 +98,11 @@ const renderTreeNodes = (data, name) => {
   } 
 
   if(typeof data === 'object') {
-    const objFile = Object.keys(data).filter(key => typeof key === 'string')
-    const objFolder = Object.keys(data).filter(key => typeof key === 'object')
-    const dataFolder = sortTree(data, objFolder, name)
-    const dataFile = sortTree(data, objFile, name)
-    return dataFolder.concat(dataFile)
+    const arrFile = Object.keys(data).sort(sortFunc).filter(key => typeof data[key] === 'string')
+    const arrFolder = Object.keys(data).sort(sortFunc).filter(key => typeof data[key] === 'object')
+    const dataFolder = sortTree(data, arrFile, name)
+    const dataFile = sortTree(data, arrFolder, name)
+    return dataFile.concat(dataFolder)
   }
   return <TreeNode title='Error' key='Error' />
 }

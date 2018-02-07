@@ -11,8 +11,7 @@ import {
   Profile, 
   Login, 
   Contact,
-  ComponentButtonPage,
-  ComponentAlertPage,
+  Timeline,
 } from './pages'
 
 const Routes = () => (
@@ -23,9 +22,7 @@ const Routes = () => (
       <Route path="/github" component={Profile}/>
       <Route path="/login" component={Login}/>
       <Route path="/contact" component={Contact}/>
-      <Route exact path="/components" component={Home}/>
-      <Route path="/components/alert" component={ComponentAlertPage}/>
-      <Route path="/components/button" component={ComponentButtonPage}/>
+      <Route path="/timeline" component={Timeline}/>
     </Switch>
   </Router>
 )

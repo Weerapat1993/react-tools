@@ -1,11 +1,24 @@
 import React from 'react'
 import moment from 'moment'
-import { List, Avatar } from 'antd'
+import { List, Avatar, Modal } from 'antd'
 import { connect } from 'react-redux'
 import { Layouts } from '../../components'
 import { store } from '../../../utils/store/store';
 
 const Home = (props) => {
+  const confirmUrl = (url) => {
+    Modal.confirm({
+      title: 'Do you Want to open github website?',
+      content: url,
+      onOk() {
+        window.open(url)
+      },
+      onCancel() {
+        
+      },
+    });
+  }
+
   const { github } = props
   return (
     <Layouts {...props}>
@@ -24,7 +37,7 @@ const Home = (props) => {
                 <List.Item>
                   <List.Item.Meta
                     avatar={<Avatar src={item.owner.avatar_url} />}
-                    title={<a href={item.html_url} target='_blank'>{item.full_name}</a>}
+                    title={<a onClick={() => confirmUrl(item.html_url)} target='_blank'>{item.full_name}</a>}
                     description={item.description}
                   />
                   <div>{moment(item.updated_at, "YYYYMMDD").fromNow()}</div>

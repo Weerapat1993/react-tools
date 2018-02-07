@@ -3,7 +3,7 @@ import About from './about'
 import Profile from './profile'
 import Login from './login'
 import Contact from './contact'
-import { ComponentAlertPage,  ComponentButtonPage } from './components'
+import Timeline from './timeline'
 
 export {
   Home,
@@ -11,8 +11,7 @@ export {
   Profile,
   Login,
   Contact,
-  ComponentAlertPage,
-  ComponentButtonPage,
+  Timeline,
 }
 
 

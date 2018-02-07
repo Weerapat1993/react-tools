@@ -30,9 +30,12 @@ const GET_FAILURE = (action) => ({
  * @property {boolean} isReload
  * @property {string} error
  * @property {Data} data
+ * @property {Array.<string>} byID
+ * @property {Object.<Object>} keys 
  * 
  * @typedef {Object} Action
  * @property {string} type
+ * @property {string} key
  * @property {Data} data
  * @property {Error} error
  */
@@ -45,6 +48,7 @@ export class Reducer {
   constructor(state, action) {
     this.state = state
     this.action = action
+    this.key = action.key
   }
 
   /**
@@ -60,11 +64,37 @@ export class Reducer {
   }
 
   /**
+   * Set state withKey in Reducer
+   * @param {State} newState
+   * @return {State}
+   */
+  setStateWithKey(newState) {
+    return {
+      ...this.state,
+      keys: {
+        ...this.state.keys,
+        [this.key]: {
+          ...this.state.keys[this.key],
+          ...newState
+        }
+      }
+    }
+  }
+
+  /**
    * get Request case in Reducer
    * @return {State}
    */
   getRequest() {
     return this.setState(GET_REQUEST)
+  }
+
+  /**
+   * get Request case withKey in Reducer
+   * @return {State}
+   */
+  getRequestWithKey() {
+    return this.setStateWithKey(GET_REQUEST)
   }
 
   /**
@@ -80,11 +110,45 @@ export class Reducer {
   }
 
   /**
+   * get Success case withKey in Reducer
+   * @param {State} data
+   * @return {State}
+   */
+  getSuccessWithKey(data) {
+    const { keys } = this.setStateWithKey({
+      ...GET_SUCCESS,
+      ...data,
+    })
+    return this.setState({
+      byID: this.addByID(),
+      keys,
+    })
+  }
+
+  /**
    * get Failure case in Reducer
    * @return {State}
    */
   getFailure() {
     return this.setState(GET_FAILURE(this.action))
+  }
+
+  /**
+   * get Success case withKey in Reducer
+   * @return {State}
+   */
+  getFailureWithKey() {
+    return this.setStateWithKey(GET_FAILURE(this.action))
+  }
+
+  /**
+   * Add Key By ID
+   * @return {Array.<string>}
+   */
+  addByID() {
+    const { byID } = this.state
+    const { key } = this.action
+    return byID.filter(item => item === key).length ? byID : byID.concat([key])
   }
 }
 

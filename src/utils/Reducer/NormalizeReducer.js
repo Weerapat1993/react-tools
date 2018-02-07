@@ -26,6 +26,10 @@ const GET_FAILURE = (action) => ({
  * @typedef {Array.<Object>|Object} Data
  * 
  * @typedef {Object} State
+ * @property {Array.<string>} byID
+ * @property {Object.<Object>} keys 
+ * 
+ * @typedef {Object} StateWithKey
  * @property {boolean} isFetching
  * @property {boolean} isReload
  * @property {string} error
@@ -33,10 +37,11 @@ const GET_FAILURE = (action) => ({
  * 
  * @typedef {Object} Action
  * @property {string} type
+ * @property {string} key
  * @property {Data} data
  * @property {Error} error
  */
-export class Reducer {
+export class NormalizeReducer {
   /**
    * Reducer Constructor
    * @param {State} state 
@@ -45,6 +50,7 @@ export class Reducer {
   constructor(state, action) {
     this.state = state
     this.action = action
+    this.key = action.key
   }
 
   /**
@@ -60,33 +66,57 @@ export class Reducer {
   }
 
   /**
-   * get Request case in Reducer
+   * Set state withKey in Reducer
+   * @param {StateWithKey} newState
    * @return {State}
    */
-  getRequest() {
-    return this.setState(GET_REQUEST)
+  setStateWithKey(newState) {
+    return {
+      ...this.state,
+      keys: {
+        ...this.state.keys,
+        [this.key]: {
+          ...this.state.keys[this.key],
+          ...newState
+        }
+      }
+    }
   }
 
   /**
-   * get Success case in Reducer
-   * @param {State} data
-   * @return {State} 
+   * get Request case withKey in Reducer
+   * @return {State}
    */
-  getSuccess(data) {
-    return this.setState({
+  getRequestWithKey() {
+    return this.setStateWithKey(GET_REQUEST)
+  }
+
+  /**
+   * get Success case withKey in Reducer
+   * @param {StateWithKey} data
+   * @return {State}
+   */
+  getSuccessWithKey(data) {
+    const { byID } = this.state
+    const { key } = this.action
+    const { keys } = this.setStateWithKey({
       ...GET_SUCCESS,
       ...data,
+    })
+    return this.setState({
+      byID: byID.filter(item => item === key).length ? byID : byID.concat([key]),
+      keys,
     })
   }
 
   /**
-   * get Failure case in Reducer
+   * get Success case withKey in Reducer
    * @return {State}
    */
-  getFailure() {
-    return this.setState(GET_FAILURE(this.action))
+  getFailureWithKey() {
+    return this.setStateWithKey(GET_FAILURE(this.action))
   }
 }
 
-export default Reducer
+export default NormalizeReducer
 

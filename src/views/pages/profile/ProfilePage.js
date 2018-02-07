@@ -38,8 +38,7 @@ class ProfilePage extends Component {
     }
   }
 
-  githubProfile(select) {
-    const url = `https://github.com/${select}`
+  confirmUrl = (url) => {
     Modal.confirm({
       title: 'Do you Want to open github profile?',
       content: url,
@@ -50,6 +49,11 @@ class ProfilePage extends Component {
         
       },
     });
+  }
+
+  githubProfile(select) {
+    const url = `https://github.com/${select}`
+    this.confirmUrl(url)
   }
 
   getProfile() {
@@ -102,7 +106,7 @@ class ProfilePage extends Component {
                   <List.Item>
                     <List.Item.Meta
                       avatar={<Avatar src={item.owner.avatar_url} />}
-                      title={<a href={item.html_url} target='_blank'>{item.full_name}</a>}
+                      title={<a onClick={() => this.confirmUrl(item.html_url)} target='_blank'>{item.full_name}</a>}
                       description={item.description}
                     />
                     <div>{moment(item.updated_at, "YYYYMMDD").fromNow()}</div>

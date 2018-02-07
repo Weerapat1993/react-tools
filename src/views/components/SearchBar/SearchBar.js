@@ -70,7 +70,7 @@ class SearchBar extends Component {
       <form onSubmit={this.handleSubmit} style={style}>
         <AutoComplete
           style={{ width: 300 }}
-          dataSource={dataSource}
+          dataSource={dataSource.filter(item => keyword !== '')}
           placeholder="Github Search"
           onSearch={this.handleChange}
           onSelect={this.handleSelect}

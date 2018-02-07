@@ -1,5 +1,5 @@
 export { asyncActionType } from './async-action-types'
-export { Reducer } from './Reducer'
+export { Reducer, NormalizeReducer } from './Reducer'
 export { store } from './store'
 export * from './Collection'
 export * from './form-validation'

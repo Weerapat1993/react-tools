@@ -1,1 +1,2 @@
-export * from './Reducer'
+export { Reducer } from './Reducer'
+export { NormalizeReducer } from './NormalizeReducer'

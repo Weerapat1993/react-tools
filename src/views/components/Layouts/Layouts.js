@@ -76,6 +76,10 @@ class Layouts extends React.Component {
               <Icon type="book" />
               <span>About</span>
             </Menu.Item>
+            <Menu.Item key="/timeline">
+              <Icon type="clock-circle" />
+              <span>Timeline</span>
+            </Menu.Item>
             <Menu.Item key="/github">
               <Icon type="github" />
               <span>Github</span>
