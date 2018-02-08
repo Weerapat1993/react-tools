@@ -10,8 +10,9 @@ import './styles.css'
 import { store } from '../../../utils'
 import { githubSearchActions } from '../../../redux/github';
 import Routes from '../../routes'
+import { sideMenu } from '../../../config'
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer, Sider } = Layout
 
 class Layouts extends React.Component {
   constructor(props) {
@@ -64,30 +65,14 @@ class Layouts extends React.Component {
             </div>
           </div>
           <Menu theme="dark" defaultSelectedKeys={keyPath} mode="inline" onClick={this.onMenuKey} >
-            <Menu.Item key='/' >
-              <Icon type="home" />
-              <span>Home</span>
-            </Menu.Item>
-            <Menu.Item key="/contact">
-              <Icon type="phone" />
-              <span>Contact</span>
-            </Menu.Item>
-            <Menu.Item key="/about">
-              <Icon type="book" />
-              <span>About</span>
-            </Menu.Item>
-            <Menu.Item key="/timeline">
-              <Icon type="clock-circle" />
-              <span>Timeline</span>
-            </Menu.Item>
-            <Menu.Item key="/github">
-              <Icon type="github" />
-              <span>Github</span>
-            </Menu.Item>
-            <Menu.Item key="/login">
-              <Icon type="lock" />
-              <span>Login</span>
-            </Menu.Item>
+            {
+              sideMenu.map(item => (
+                <Menu.Item key={item.path} >
+                  <Icon type={item.icon} />
+                  <span>{item.title}</span>
+                </Menu.Item>
+              ))
+            }
           </Menu>
         </Sider>
         <Layout>
