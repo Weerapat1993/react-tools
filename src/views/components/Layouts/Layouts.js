@@ -99,7 +99,7 @@ class Layouts extends React.Component {
             />
           </Header>
           <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb style={{ margin: '16px 8px' }}>
               <Breadcrumb.Item><Icon type="home" /> <Link to='/'>Home</Link></Breadcrumb.Item>
               {
                 breadcrumbs.map((item, i) => (
