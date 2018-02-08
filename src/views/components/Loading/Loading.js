@@ -40,6 +40,7 @@ class Loading extends Component {
 Loading.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   error: PropTypes.string,
+  onReload: PropTypes.func,
 }
 
 Loading.defaultProps = {
