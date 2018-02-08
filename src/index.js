@@ -9,6 +9,7 @@ import locale from 'antd/lib/locale-provider/en_US';
 
 // StyleSheet
 import 'antd/dist/antd.css'
+import './views/styles/styles.css'
 import 'font-awesome/css/font-awesome.min.css'
 
 const App = () => (

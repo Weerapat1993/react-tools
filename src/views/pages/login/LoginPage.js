@@ -15,6 +15,10 @@ const Login = ({
     validateFieldsAndScroll,
   },
 }) => {
+  const handleSubmit = (e) => {
+    console.log(e)
+  }
+
   return (
     <div className='login-form'>
       <Link to='/'>
@@ -24,11 +28,14 @@ const Login = ({
       </div>
       </Link>
       <form>
-        <FormItem hasFeedback>
+        <FormItem onSubmit={handleSubmit} hasFeedback>
           {getFieldDecorator('username', {
             rules: [
               {
                 required: true,
+                type: 'email',
+                min: 6,
+                max: 100,
               },
             ],
           })(<Input placeholder="Username" />)}
@@ -38,6 +45,8 @@ const Login = ({
             rules: [
               {
                 required: true,
+                min: 6,
+                max: 24,
               },
             ],
           })(<Input type="password" placeholder="Password" />)}

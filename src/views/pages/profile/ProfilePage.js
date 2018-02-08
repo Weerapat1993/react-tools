@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { Radio, Button, List, Avatar, Spin, Row, Col } from 'antd'
+import { Radio, Button, List, Avatar } from 'antd'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { GITHUB_NAME } from '../../../config'
 import { githubProfileActions } from '../../../redux/github'  
-import { Layouts, LinkConfirm } from '../../components'
+import { Layouts, LinkConfirm, Loading } from '../../components'
 import { store } from '../../../utils'
 
 class ProfilePage extends Component {
@@ -83,35 +83,25 @@ class ProfilePage extends Component {
             ))
           }
         </Button.Group>
-        {
-          profile.isFetching ? (
-            <Row>
-              <Col span={24}><Spin size="large" /></Col>
-            </Row>
-          ) : (
-            !profile.error ? (
-              <List
-                itemLayout="horizontal"
-                dataSource={profile.data}
-                renderItem={item => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={item.owner.avatar_url} />}
-                      title={<a onClick={() => this.confirmUrl(item.html_url)} target='_blank'>{item.full_name}</a>}
-                      description={item.description}
-                    />
-                    <div>{moment(item.updated_at, "YYYYMMDD").fromNow()}</div>
-                  </List.Item>
-                )}
-              />
-            ) : (
-              <div className='text-center'>
-                <h3>{profile.error}</h3>
-                <Button onClick={() => this.props.handleGithubProfile(githubUser)}>Reload</Button>
-              </div>
-            )
-          )
-        }
+        <Loading 
+          isLoading={profile.isFetching}
+          error={profile.error}
+        >
+          <List
+            itemLayout="horizontal"
+            dataSource={profile.data}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={item.owner.avatar_url} />}
+                  title={<a onClick={() => this.confirmUrl(item.html_url)} target='_blank'>{item.full_name}</a>}
+                  description={item.description}
+                />
+                <div>{moment(item.updated_at, "YYYYMMDD").fromNow()}</div>
+              </List.Item>
+            )}
+          />
+        </Loading>
       </Layouts>
     )
   }

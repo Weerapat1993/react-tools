@@ -78,7 +78,9 @@ class SearchBar extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { keyword } = this.state
-    this.props.onSubmit(keyword)
+    if(keyword) {
+      this.props.onSubmit(keyword)
+    }
   }
 
   renderTitle(title, keyword) {
