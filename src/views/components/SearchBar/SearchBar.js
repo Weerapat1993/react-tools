@@ -136,7 +136,7 @@ class SearchBar extends Component {
           dropdownClassName="certain-category-search-dropdown"
           dropdownMatchSelectWidth={false}
           optionLabelProp="value"
-          style={{ width: 300 }}
+          style={{ width: 320 }}
           dataSource={keyword ? options : []}
           placeholder="Github Search"
           onSearch={this.handleChange}

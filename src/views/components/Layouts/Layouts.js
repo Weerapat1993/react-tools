@@ -16,11 +16,6 @@ class Layouts extends React.Component {
   constructor(props) {
     super(props)
 
-    const collapsed = _.get(props.location, `state.collapsed`, false)
-    this.state = {
-      collapsed,
-    }
-
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClearData = this.handleClearData.bind(this)
   }
@@ -39,10 +34,9 @@ class Layouts extends React.Component {
 
   onMenuKey = ({ key, keyPath }) => {
     const { history, location } = this.props
-    const { collapsed } = this.state
     const route = {
       pathname: key,
-      state: { keyPath, collapsed }
+      state: { keyPath }
     }
     if(key !== location.pathname) {
       history.push(route)
@@ -51,7 +45,6 @@ class Layouts extends React.Component {
   
   render() {
     const { children, location, github } = this.props
-    const { collapsed } = this.state
     const breadcrumbs = location.pathname.split(new RegExp('/','g')).slice(1)
     const keyPath = _.get(location, 'state.keyPath', [location.pathname])
     const searchData = [{
@@ -61,14 +54,12 @@ class Layouts extends React.Component {
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={this.onCollapse}
+          breakpoint="lg"
+          collapsedWidth="0"
         >
           <div className="logo">
             <div className='ant-logo'>
               <img alt='logo' src={logo} className='ant-logo-img' />
-              {!collapsed ? <span className='ant-logo-span'>Ant Admin</span> : null}
             </div>
           </div>
           <Menu theme="dark" defaultSelectedKeys={keyPath} mode="inline" onClick={this.onMenuKey} >
@@ -99,19 +90,13 @@ class Layouts extends React.Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0, display: 'flex', alignItems: 'center' }}>
-              <Icon
-                className="trigger"
-                type={collapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={this.onCollapse}
-                style={{ paddingLeft: 15, paddingRight: 15}}
-              />
-              <SearchBar
-                isFetching={github.isFetching}
-                dataSource={searchData} 
-                onSubmit={this.handleSubmit} 
-                onClearData={this.handleClearData}
-              />
+          <Header style={{ background: '#fff', paddingLeft: 15, paddingRight: 15, display: 'flex', alignItems: 'center' }}>
+            <SearchBar
+              isFetching={github.isFetching}
+              dataSource={searchData} 
+              onSubmit={this.handleSubmit} 
+              onClearData={this.handleClearData}
+            />
           </Header>
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
