@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { Radio, Button, Modal, List, Avatar, Spin, Row, Col } from 'antd'
+import { Radio, Button, List, Avatar, Spin, Row, Col } from 'antd'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { GITHUB_NAME } from '../../../config'
 import { githubProfileActions } from '../../../redux/github'  
-import { Layouts } from '../../components'
+import { Layouts, LinkConfirm } from '../../components'
 import { store } from '../../../utils'
 
 class ProfilePage extends Component {
@@ -38,16 +38,8 @@ class ProfilePage extends Component {
   }
 
   confirmUrl = (url) => {
-    Modal.confirm({
-      title: 'Do you Want to open github profile?',
-      content: url,
-      onOk() {
-        window.open(url)
-      },
-      onCancel() {
-        
-      },
-    });
+    const title = 'Do you Want to open github profile?'
+    LinkConfirm(title, url)
   }
 
   githubProfile(select) {

@@ -1,22 +1,14 @@
 import React from 'react'
 import moment from 'moment'
-import { List, Avatar, Modal, Spin, Row, Col } from 'antd'
+import { List, Avatar, Spin, Row, Col } from 'antd'
 import { connect } from 'react-redux'
-import { Layouts } from '../../components'
+import { Layouts, LinkConfirm } from '../../components'
 import { store } from '../../../utils/store/store';
 
 const Home = (props) => {
   const confirmUrl = (url) => {
-    Modal.confirm({
-      title: 'Do you Want to open github website?',
-      content: url,
-      onOk() {
-        window.open(url)
-      },
-      onCancel() {
-        
-      },
-    });
+    const title = 'Do you Want to open github website?'
+    LinkConfirm(title, url)
   }
 
   const { github } = props
