@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Row, Col, Spin, Modal, Button } from 'antd'
 
-const modalError = () => {
+const modalError = (error) => {
   Modal.error({
-    title: 'This is an error message',
-    content: 'some messages...some messages...',
+    title: 'Error!',
+    content: error,
   });
 }
 
@@ -13,7 +13,7 @@ class Loading extends Component {
   componentWillReceiveProps(nextProps) {
     const { error } = this.props
     if(error !== nextProps.error && nextProps.error) {
-      modalError()
+      modalError(nextProps.error)
     }
   }
 
