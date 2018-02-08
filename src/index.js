@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { HashRouter as Router, Route } from 'react-router-dom'
 import { LocaleProvider } from 'antd';
-import Routes from './views/routes'
 import configureStore from './redux/store'
-import registerServiceWorker from './registerServiceWorker'
+import { App } from './views/components'
+
+// import registerServiceWorker from './registerServiceWorker'
 import locale from 'antd/lib/locale-provider/en_US';
 
 // StyleSheet
@@ -12,13 +14,15 @@ import 'antd/dist/antd.css'
 import './views/styles/styles.css'
 import 'font-awesome/css/font-awesome.min.css'
 
-const App = () => (
+const Index = () => (
   <Provider store={configureStore()}>
     <LocaleProvider locale={locale}>
-      <Routes />
+      <Router>
+        <Route path='/' component={App} />
+      </Router>
     </LocaleProvider>
   </Provider>
 )
 
-ReactDOM.render(<App />, document.getElementById('root'))
-registerServiceWorker()
+ReactDOM.render(<Index />, document.getElementById('root'))
+// registerServiceWorker()

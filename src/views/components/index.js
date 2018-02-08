@@ -1,4 +1,5 @@
-export { Layouts } from './Layouts'
+
+export { App } from './App'
 export { SearchBar } from './SearchBar'
 export { FolderStructure } from './FolderStructure'
 export { LinkConfirm } from './LinkConfirm'

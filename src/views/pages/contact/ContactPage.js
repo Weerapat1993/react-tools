@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layouts, FolderStructure } from '../../components'
+import { FolderStructure } from '../../components'
 
 const constants = [
   'endpoint.js'
@@ -88,7 +88,7 @@ const modularStructure = {
 
 const Contact = (props) => {
   return (
-    <Layouts {...props}>
+    <div>
       <h1>Contact</h1>
 
       <h3>My Project Folder Structure</h3>
@@ -96,7 +96,7 @@ const Contact = (props) => {
 
       <h3>Modular Folder Structure</h3>
       <FolderStructure data={modularStructure} />
-    </Layouts>
+    </div>
   )
 }
 

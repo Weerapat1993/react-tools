@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import { List, Avatar } from 'antd'
 import { connect } from 'react-redux'
-import { Layouts, LinkConfirm, Loading } from '../../components'
+import { LinkConfirm, Loading } from '../../components'
 import { store } from '../../../utils/store/store';
 
 const Home = (props) => {
@@ -13,7 +13,7 @@ const Home = (props) => {
 
   const { github } = props
   return (
-    <Layouts {...props}>
+    <div>
       <h1>Home</h1>
       <Loading 
         isLoading={github.isFetching}
@@ -34,7 +34,7 @@ const Home = (props) => {
           )}
         />
       </Loading>
-    </Layouts>
+    </div>
   )
 }
 

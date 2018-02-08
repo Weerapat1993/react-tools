@@ -9,6 +9,7 @@ import logo from '../../assets/images/logo.svg'
 import './styles.css'
 import { store } from '../../../utils'
 import { githubSearchActions } from '../../../redux/github';
+import Routes from '../../routes'
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -44,7 +45,7 @@ class Layouts extends React.Component {
   }
   
   render() {
-    const { children, location, github } = this.props
+    const { location, github } = this.props
     const breadcrumbs = location.pathname.split(new RegExp('/','g')).slice(1)
     const keyPath = _.get(location, 'state.keyPath', [location.pathname])
     const searchData = [{
@@ -108,7 +109,7 @@ class Layouts extends React.Component {
               }
             </Breadcrumb>
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-              {children}
+              <Routes />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>

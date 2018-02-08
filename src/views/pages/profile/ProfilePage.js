@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import { GITHUB_NAME } from '../../../config'
 import { githubProfileActions } from '../../../redux/github'  
-import { Layouts, LinkConfirm, Loading } from '../../components'
+import { LinkConfirm, Loading } from '../../components'
 import { store } from '../../../utils'
 
 class ProfilePage extends Component {
@@ -66,7 +66,7 @@ class ProfilePage extends Component {
     const profile = this.getProfile()
     const btnGroups = [GITHUB_NAME, 'NotFoundData', 'facebook']
     return (
-      <Layouts {...this.props}>
+      <div>
         <h1>Github Profile</h1>
         <Radio.Group onChange={this.handleGithubProfile} defaultValue={githubUser}>
           {
@@ -103,7 +103,7 @@ class ProfilePage extends Component {
             )}
           />
         </Loading>
-      </Layouts>
+      </div>
     )
   }
 }

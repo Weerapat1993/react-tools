@@ -1,12 +1,24 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Spin, Modal, Button } from 'antd'
+import { Row, Col, Spin, message, Button } from 'antd'
+
+const getErrorMessage = (error) => {
+  switch(error) {
+    case 'Network Error':
+      return 'การเชื่อมต่อล้มเหลว กรุณาเชื่อมต่ออินเตอร์เน็ต'
+    case 'Not Found':
+      return 'ไม่สามารถโหลดข้อมูลได้'
+    default:
+      return error
+  }
+}
 
 const modalError = (error) => {
-  Modal.error({
-    title: 'Error!',
-    content: error,
-  });
+  message.error(getErrorMessage(error));
+  // Modal.error({
+  //   title: 'Error!',
+  //   content: error,
+  // });
 }
 
 class Loading extends Component {
