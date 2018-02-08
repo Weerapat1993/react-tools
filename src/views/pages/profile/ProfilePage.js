@@ -86,6 +86,7 @@ class ProfilePage extends Component {
         <Loading 
           isLoading={profile.isFetching}
           error={profile.error}
+          onReload={() => this.props.handleGithubProfile(githubUser)}
         >
           <List
             itemLayout="horizontal"
