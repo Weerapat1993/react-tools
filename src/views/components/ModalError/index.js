@@ -1,0 +1,1 @@
+export { modalError } from './ModelError'

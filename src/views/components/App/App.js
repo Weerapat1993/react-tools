@@ -12,6 +12,7 @@ import { store } from '../../../utils'
 import { githubSearchActions } from '../../../redux/github';
 import Routes from '../../routes'
 import { sideMenu } from '../../../config'
+import { modalError } from '../ModalError'
 
 const { Header, Content, Footer, Sider } = Layout
 
@@ -20,14 +21,21 @@ class Layouts extends React.Component {
     super(props)
 
     this.state = {
-      collapsed: false
+      collapsed: false,
+      positionFixed: true,
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClearData = this.handleClearData.bind(this)
   }
 
   handleSubmit(value) {
+    const { history } = this.props
     this.props.fetchGithub(value)
+    const route = {
+      pathname: '/',
+      state: {}
+    }
+    history.push(route)
   }
 
   handleClearData() {
@@ -62,20 +70,25 @@ class Layouts extends React.Component {
   
   render() {
     const { location, github, dimenstion, isMobile } = this.props
-    const { collapsed } = this.state
+    const { collapsed, positionFixed } = this.state
     const breadcrumbs = location.pathname.split(new RegExp('/','g')).slice(1)
     const keyPath = _.get(location, 'state.keyPath', [location.pathname])
     const searchData = [{
       title: 'Repositories',
       children: github.data,
     }];
+    const menuStyle = positionFixed ? {
+      position: 'fixed',
+      height: `100%`
+    } : {}
+    const layoutStyle = positionFixed ? { marginLeft: !collapsed ? 200 : 0 } : {}
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
           breakpoint="md"
           collapsedWidth="0"
           onCollapse={this.onCollapse}
-          style={{ zIndex: 500 }}
+          style={{ zIndex: 500, ...menuStyle }}
         >
           <div className="logo">
             <div className='ant-logo'>
@@ -93,7 +106,7 @@ class Layouts extends React.Component {
             }
           </Menu>
         </Sider>
-        <Layout>
+        <Layout style={layoutStyle}>
           { !collapsed && isMobile && <div className='dark-bg' /> }
           <Header style={{ background: '#fff', paddingLeft: 15, paddingRight: 15, display: 'flex', alignItems: 'center' }}>
             <SearchBar
@@ -126,10 +139,9 @@ class Layouts extends React.Component {
   }
 }
 
-
-
 const mapStateToProps = (state, ownProps) => ({
-  github: store(state).github.search
+  github: store(state).github.search,
+  error: store(state).github.search.error,
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
