@@ -12,7 +12,6 @@ import { store } from '../../../utils'
 import { githubSearchActions } from '../../../redux/github';
 import Routes from '../../routes'
 import { sideMenu } from '../../../config'
-import { modalError } from '../ModalError'
 
 const { Header, Content, Footer, Sider } = Layout
 
