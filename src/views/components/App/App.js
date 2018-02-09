@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import { SearchBar } from '../SearchBar'
+import withSizes from 'react-sizes'
 import logo from '../../assets/images/logo.svg'
 import './styles.css'
 import { store } from '../../../utils'
@@ -18,6 +19,9 @@ class Layouts extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      collapsed: false
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClearData = this.handleClearData.bind(this)
   }
@@ -30,8 +34,8 @@ class Layouts extends React.Component {
     this.props.clearGithubRepositories()
   }
 
-  onCollapse = () => {
-    this.setState({ collapsed: !this.state.collapsed });
+  onCollapse = (collapsed) => {
+    this.setState({ collapsed });
   }
 
   onMenuKey = ({ key, keyPath }) => {
@@ -46,7 +50,7 @@ class Layouts extends React.Component {
   }
   
   render() {
-    const { location, github } = this.props
+    const { location, github, dimenstion } = this.props
     const breadcrumbs = location.pathname.split(new RegExp('/','g')).slice(1)
     const keyPath = _.get(location, 'state.keyPath', [location.pathname])
     const searchData = [{
@@ -58,6 +62,7 @@ class Layouts extends React.Component {
         <Sider
           breakpoint="lg"
           collapsedWidth="0"
+          onCollapse={this.onCollapse}
         >
           <div className="logo">
             <div className='ant-logo'>
@@ -84,8 +89,8 @@ class Layouts extends React.Component {
               onClearData={this.handleClearData}
             />
           </Header>
-          <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 8px' }}>
+          <Content style={{ margin: 0 }}>
+            <Breadcrumb style={{ margin: '16px 24px', minWidth: dimenstion.width }}>
               <Breadcrumb.Item><Icon type="home" /> <Link to='/'>Home</Link></Breadcrumb.Item>
               {
                 breadcrumbs.map((item, i) => (
@@ -93,7 +98,7 @@ class Layouts extends React.Component {
                 ))
               }
             </Breadcrumb>
-            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+            <div style={{ padding: 24, background: '#fff', minHeight: 360, minWidth: dimenstion.width }}>
               <Routes />
             </div>
           </Content>
@@ -107,6 +112,7 @@ class Layouts extends React.Component {
 }
 
 
+
 const mapStateToProps = (state, ownProps) => ({
   github: store(state).github.search
 })
@@ -116,7 +122,14 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   clearGithubRepositories: () => dispatch(githubSearchActions.clearGithubRepositories()),
 })
 
+const mapSizesToProps = ({ width }) => ({
+  isMobile: width < 480,
+  dimenstion: {
+    width
+  }
+})
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Layouts)
+)(withSizes(mapSizesToProps)(Layouts))
