@@ -51,6 +51,7 @@ class Layouts extends React.Component {
   
   render() {
     const { location, github, dimenstion } = this.props
+    const { collapsed } = this.state
     const breadcrumbs = location.pathname.split(new RegExp('/','g')).slice(1)
     const keyPath = _.get(location, 'state.keyPath', [location.pathname])
     const searchData = [{
@@ -63,6 +64,7 @@ class Layouts extends React.Component {
           breakpoint="lg"
           collapsedWidth="0"
           onCollapse={this.onCollapse}
+          style={{ zIndex: 500 }}
         >
           <div className="logo">
             <div className='ant-logo'>
@@ -81,6 +83,7 @@ class Layouts extends React.Component {
           </Menu>
         </Sider>
         <Layout>
+          { !collapsed && <div className='dark-bg' /> }
           <Header style={{ background: '#fff', paddingLeft: 15, paddingRight: 15, display: 'flex', alignItems: 'center' }}>
             <SearchBar
               isFetching={github.isFetching}
@@ -102,7 +105,7 @@ class Layouts extends React.Component {
               <Routes />
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
+          <Footer style={{ textAlign: 'center', minWidth: dimenstion.width }}>
             Ant Design ©2016 Created by Ant UED
           </Footer>
         </Layout>
@@ -122,10 +125,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   clearGithubRepositories: () => dispatch(githubSearchActions.clearGithubRepositories()),
 })
 
-const mapSizesToProps = ({ width }) => ({
-  isMobile: width < 480,
+const mapSizesToProps = ({ width, height }) => ({
   dimenstion: {
-    width
+    width, 
+    height,
   }
 })
 
