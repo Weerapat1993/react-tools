@@ -83,18 +83,14 @@ export class Reducer {
 
   /**
    * get Request case in Reducer
+   * @param {State} data
    * @return {State}
    */
-  getRequest() {
-    return this.setState(GET_REQUEST)
-  }
-
-  /**
-   * get Request case withKey in Reducer
-   * @return {State}
-   */
-  getRequestWithKey() {
-    return this.setStateWithKey(GET_REQUEST)
+  getRequest(data) {
+    return this.setState({
+      ...GET_REQUEST,
+      ...data,
+    })
   }
 
   /**
@@ -110,45 +106,57 @@ export class Reducer {
   }
 
   /**
-   * get Success case withKey in Reducer
+   * get Failure case in Reducer
    * @param {State} data
    * @return {State}
    */
+  getFailure(data) {
+    return this.setState({
+      ...GET_FAILURE(this.action),
+      ...data,
+    })
+  }
+
+ /**
+   * get Request case withKey in Reducer
+   * @param {StateWithKey} data
+   * @return {State}
+   */
+  getRequestWithKey(data) {
+    return this.setStateWithKey({
+      ...GET_REQUEST,
+      ...data,
+    })
+  }
+
+  /**
+   * get Success case withKey in Reducer
+   * @param {StateWithKey} data
+   * @return {State}
+   */
   getSuccessWithKey(data) {
+    const { byID } = this.state
+    const { key } = this.action
     const { keys } = this.setStateWithKey({
       ...GET_SUCCESS,
       ...data,
     })
     return this.setState({
-      byID: this.addByID(),
+      byID: byID.filter(item => item === key).length ? byID : byID.concat([key]),
       keys,
     })
   }
 
   /**
-   * get Failure case in Reducer
-   * @return {State}
-   */
-  getFailure() {
-    return this.setState(GET_FAILURE(this.action))
-  }
-
-  /**
    * get Success case withKey in Reducer
+   * @param {StateWithKey} data
    * @return {State}
    */
-  getFailureWithKey() {
-    return this.setStateWithKey(GET_FAILURE(this.action))
-  }
-
-  /**
-   * Add Key By ID
-   * @return {Array.<string>}
-   */
-  addByID() {
-    const { byID } = this.state
-    const { key } = this.action
-    return byID.filter(item => item === key).length ? byID : byID.concat([key])
+  getFailureWithKey(data) {
+    return this.setStateWithKey({
+      ...GET_FAILURE(this.action),
+      ...data,
+    })
   }
 }
 

@@ -61,10 +61,14 @@ export class Reducer {
 
   /**
    * get Request case in Reducer
+   * @param {State} data
    * @return {State}
    */
-  getRequest() {
-    return this.setState(GET_REQUEST)
+  getRequest(data) {
+    return this.setState({
+      ...GET_REQUEST,
+      ...data,
+    })
   }
 
   /**
@@ -81,10 +85,14 @@ export class Reducer {
 
   /**
    * get Failure case in Reducer
+   * @param {State} data
    * @return {State}
    */
-  getFailure() {
-    return this.setState(GET_FAILURE(this.action))
+  getFailure(data) {
+    return this.setState({
+      ...GET_FAILURE(this.action),
+      ...data,
+    })
   }
 }
 

@@ -85,10 +85,14 @@ export class NormalizeReducer {
 
   /**
    * get Request case withKey in Reducer
+   * @param {StateWithKey} data
    * @return {State}
    */
-  getRequestWithKey() {
-    return this.setStateWithKey(GET_REQUEST)
+  getRequestWithKey(data) {
+    return this.setStateWithKey({
+      ...GET_REQUEST,
+      ...data
+    })
   }
 
   /**
@@ -111,10 +115,14 @@ export class NormalizeReducer {
 
   /**
    * get Success case withKey in Reducer
+   * @param {StateWithKey} data
    * @return {State}
    */
-  getFailureWithKey() {
-    return this.setStateWithKey(GET_FAILURE(this.action))
+  getFailureWithKey(data) {
+    return this.setStateWithKey({
+      ...GET_FAILURE(this.action),
+      ...data
+    })
   }
 }
 
