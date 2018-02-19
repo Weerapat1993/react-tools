@@ -1,9 +1,8 @@
 import React from 'react'
 import moment from 'moment'
 import { List, Avatar } from 'antd'
-import { connect } from 'react-redux'
 import { LinkConfirm, Loading } from '../../components'
-import { store } from '../../../utils/store/store';
+import { withSearchGithub } from '../../../redux/github/'
 
 const Home = (props) => {
   const confirmUrl = (url) => {
@@ -38,16 +37,5 @@ const Home = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  github: store(state).github.search
-})
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Home)
+export default withSearchGithub(Home)
 

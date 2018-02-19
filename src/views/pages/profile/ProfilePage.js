@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import { Radio, Button, List, Avatar } from 'antd'
-import { connect } from 'react-redux'
 import moment from 'moment'
 import { GITHUB_NAME } from '../../../config'
-import { githubProfileActions } from '../../../redux/github'  
+import { withProfileGithub } from '../../../redux/github'  
 import { LinkConfirm, Loading } from '../../components'
-import { store } from '../../../utils'
 
 class ProfilePage extends Component {
   constructor() {
@@ -108,19 +106,5 @@ class ProfilePage extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  byID: store(state).github.profile.byID,
-  keys: store(state).github.profile.keys,
-})
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  githubProfile: (name) => dispatch(githubProfileActions.githubProfile(name)),
-  reloadGithibProfile: (name) => dispatch(githubProfileActions.reloadGithibProfile(name)),
-  handleGithubProfile: (name) => dispatch(githubProfileActions.handleGithubProfile(name)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ProfilePage)
+export default withProfileGithub(ProfilePage)
 

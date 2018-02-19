@@ -8,7 +8,6 @@ import { SearchBar } from '../SearchBar'
 import withSizes from 'react-sizes'
 import logo from '../../assets/images/logo.svg'
 import './styles.css'
-import { store } from '../../../utils'
 import { githubSearchActions } from '../../../redux/github';
 import Routes from '../../routes'
 import { sideMenu } from '../../../config'
@@ -28,13 +27,15 @@ class Layouts extends React.Component {
   }
 
   handleSubmit(value) {
-    const { history } = this.props
+    const { history, location } = this.props
     this.props.fetchGithub(value)
     const route = {
       pathname: '/',
       state: {}
     }
-    history.push(route)
+    if(location.pathname !== '/') {
+      history.push(route)
+    }
   }
 
   handleClearData() {
@@ -139,8 +140,8 @@ class Layouts extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  github: store(state).github.search,
-  error: store(state).github.search.error,
+  github: state.github.search,
+  error: state.github.search.error,
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
