@@ -1,4 +1,8 @@
 import * as githubSearchActions from './githubSearchActions'
+import { githubSearchReducer, initialState } from './githubSearchReducer'
 
-export { githubSearchReducer } from './githubSearchReducer'
-export { githubSearchActions }
+export {
+  githubSearchActions,
+  githubSearchReducer,
+  initialState as githubSearchState
+}

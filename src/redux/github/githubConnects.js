@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { store } from '../../utils'
 import { githubProfileActions } from './profile'
 
 const { githubProfile, reloadGithibProfile, handleGithubProfile } = githubProfileActions
@@ -6,8 +7,8 @@ const { githubProfile, reloadGithibProfile, handleGithubProfile } = githubProfil
 export const withProfileGithub = (WrapperComponent) => connect(
   // mapStateToProps
   state => ({
-    byID: state.github.profile.byID,
-    keys: state.github.profile.keys,
+    byID: store(state).github.profile.byID,
+    keys: store(state).github.profile.keys,
   }),
   // mapDispatchToProps
   {
@@ -20,7 +21,7 @@ export const withProfileGithub = (WrapperComponent) => connect(
 export const withSearchGithub = (WrapperComponent) => connect(
   // mapStateToProps
   state => ({
-    github: state.github.search,
+    github: store(state).github.search,
   }),
   // mapDispatchToProps
   dispatch => ({

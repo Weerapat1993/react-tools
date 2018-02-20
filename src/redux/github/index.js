@@ -1,14 +1,11 @@
 import { combineReducers } from 'redux'
-import { githubProfileActions, githubProfileReducer } from './profile'
-import { githubSearchActions, githubSearchReducer } from './search'
-
-// const githubProfileReducerInitalState = githubProfileReducer()
-// const githubSearchReducerInitalState = githubSearchReducer()
+import { githubProfileActions, githubProfileReducer, githubProfileState } from './profile'
+import { githubSearchActions, githubSearchReducer, githubSearchState } from './search'
   
 /**
  * @typedef {Object} GithubReducer
- * @property {githubProfileReducerInitalState} profile
- * @property {githubSearchReducerInitalState} search
+ * @property {githubProfileState} profile
+ * @property {githubSearchState} search
  */
 
 /** @type {GithubReducer} */
