@@ -20,7 +20,7 @@ export const githubSearchReducer = (state = initialState, action) => {
     case SEARCH_GITHUB_REPOSITORIES.REQUEST:
       return reducer.getRequest()
     case SEARCH_GITHUB_REPOSITORIES.SUCCESS:
-      return reducer.getSuccess({ data: action.data })
+      return reducer.getSuccess({ data: action.data.items })
     case SEARCH_GITHUB_REPOSITORIES.FAILURE:
       return reducer.getFailure()
     case CLEAR_GITHUB_REPOSITORIES:

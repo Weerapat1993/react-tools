@@ -20,4 +20,4 @@ export {
   githubReducer,
 }
 
-export * from './githubConnects'
+export * from './githubConnector'

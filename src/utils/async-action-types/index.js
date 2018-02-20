@@ -1,1 +1,1 @@
-export { asyncActionType, AsyncActions } from './asyncActionTypes'
+export { asyncActionType, AsyncActions, asyncAction } from './asyncActionTypes'

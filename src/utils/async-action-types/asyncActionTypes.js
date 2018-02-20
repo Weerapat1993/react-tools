@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 /** 
  * @typedef {Object} AsyncActionTypes
  * @property {string} REQUEST
@@ -10,6 +12,20 @@ export const asyncActionType = (type) => ({
   SUCCESS: type+'_SUCCESS',
   FAILURE: type+'_FAILURE',
 })
+
+/**
+ * Async Actions with Axios
+ * @param {Object} ACTION_TYPE 
+ * @param {Object} header 
+ * @param {string} key 
+ */
+export const asyncAction = (ACTION_TYPE, header, key) => (dispatch, getState) => {
+  const action = new AsyncActions(ACTION_TYPE)
+  dispatch(action.request(key))
+  return axios(header)
+    .then(res => dispatch(action.success(res.data, key)))
+    .catch(error => dispatch(action.failure(error, key)))
+}
 
 export class AsyncActions {
   /**
