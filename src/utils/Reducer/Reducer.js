@@ -23,17 +23,15 @@ const GET_FAILURE = (action) => ({
  * ```js
  * const reducer = new Reducer(state, action)
  * ```
- * @typedef {Array.<Object>|Object} Data
- * 
  * @typedef {Object} State
  * @property {boolean} isFetching
  * @property {boolean} isReload
  * @property {string} error
- * @property {Data} data
+ * @property {*} data
  * 
  * @typedef {Object} Action
  * @property {string} type
- * @property {Data} data
+ * @property {*} data
  * @property {Error} error
  */
 export class Reducer {

@@ -11,7 +11,7 @@ export const initialState = {
 /**
  * Github Search Reducer
  * @param {initialState} state 
- * @param {{ type: string, data: [], error: string }} action 
+ * @param {{ type: string, data: any, error: string }} action 
  * @return {initialState}
  */
 export const githubSearchReducer = (state = initialState, action) => {

@@ -9,7 +9,7 @@ export const initialState = {
 /**
  * Github Profile Reducer
  * @param {initialState} state 
- * @param {{ type: string, data: [], key: string, error: Error }} action 
+ * @param {{ type: string, data: any, key: string, error: Error }} action 
  * @return {initialState}
  */
 export const githubProfileReducer = (state = initialState, action) => {
