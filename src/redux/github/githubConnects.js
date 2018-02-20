@@ -1,9 +1,9 @@
-import { withConnect } from '../../utils';
+import { connect } from 'react-redux'
 import { githubProfileActions } from './profile'
 
 const { githubProfile, reloadGithibProfile, handleGithubProfile } = githubProfileActions
 
-export const withProfileGithub = (WrapperComponent) => withConnect(
+export const withProfileGithub = (WrapperComponent) => connect(
   // mapStateToProps
   state => ({
     byID: state.github.profile.byID,
@@ -14,12 +14,10 @@ export const withProfileGithub = (WrapperComponent) => withConnect(
     githubProfile, 
     reloadGithibProfile, 
     handleGithubProfile
-  },
-  // Component
-  WrapperComponent
-)
+  }
+)(WrapperComponent)
 
-export const withSearchGithub = (WrapperComponent) => withConnect(
+export const withSearchGithub = (WrapperComponent) => connect(
   // mapStateToProps
   state => ({
     github: state.github.search,
@@ -28,9 +26,7 @@ export const withSearchGithub = (WrapperComponent) => withConnect(
   dispatch => ({
     
   }),
-  // Component
-  WrapperComponent
-)
+)(WrapperComponent)
 
 
 
