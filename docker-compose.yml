@@ -1,0 +1,5 @@
+web:
+  build: .
+  container_name: hello-docker
+  ports:
+    - '9999:3000'
