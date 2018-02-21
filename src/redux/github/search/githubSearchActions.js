@@ -29,12 +29,4 @@ export const fetchGithub = (keyword) => (dispatch, getState) => {
     .catch(error => dispatch(action.failure(error)))
 }
 
-// export const fetchGithub = (keyword) => (
-//   asyncAction(SEARCH_GITHUB_REPOSITORIES, {
-//     method: 'GET',
-//     responseType: 'json',
-//     url: API_ENDPOINT_SEARCH_GITHUB(keyword),
-//   })
-// )
-
 export const clearGithubRepositories = () => ({ type: CLEAR_GITHUB_REPOSITORIES })
