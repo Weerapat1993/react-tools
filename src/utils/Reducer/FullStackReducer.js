@@ -37,7 +37,7 @@ const GET_FAILURE = (action) => ({
  * @property {*} data
  * @property {Error} error
  */
-export class Reducer {
+export class FullStackReducer {
   /**
    * Reducer Constructor
    * @param {State} state 
@@ -158,5 +158,5 @@ export class Reducer {
   }
 }
 
-export default Reducer
+export default FullStackReducer
 

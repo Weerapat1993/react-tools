@@ -1,0 +1,1 @@
+export const classReducer = (ClassReducer, initialState) => (state = initialState, action) => new ClassReducer(state, action).getState()

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
-import { githubProfileActions, githubProfileReducer, githubProfileState } from './profile'
-import { githubSearchActions, githubSearchReducer, githubSearchState } from './search'
+import { githubProfileActions, githubProfileReducer } from './profile'
+import { githubSearchActions, githubSearchReducer } from './search'
   
 /**
  * @typedef {Object} GithubReducer
- * @property {githubProfileState} profile
- * @property {githubSearchState} search
+ * @property {githubProfileReducer} profile
+ * @property {githubSearchReducer} search
  */
 
 /** @type {GithubReducer} */
