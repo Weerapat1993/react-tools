@@ -1,4 +1,4 @@
-import { rootReducers } from '../../redux/rootReducers'
+import { rootReducers } from '../../../redux/rootReducers'
 
 /**
  * Redux Store

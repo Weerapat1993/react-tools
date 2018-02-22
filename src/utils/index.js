@@ -1,5 +1,3 @@
-export { asyncActionType, AsyncActions, asyncAction } from './async-action-types'
-export * from './Reducer'
-export { store } from './store'
+export * from './modular'
 export * from './Collection'
 export * from './form-validation'
